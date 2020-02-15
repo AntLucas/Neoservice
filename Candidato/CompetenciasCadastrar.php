@@ -1,18 +1,15 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
 <?php 
 session_start();
-
-
  if($_SESSION['Contador'] == 2){
-	echo "aeeeee";
+
 	header('Location: CompetenciasCadastrar.php');
 	
 	$_SESSION['Contador'] = 0; 
 }
+include_once("../assets/lib/dbconnect.php"); 
+
 $_SESSION['Contador'] +=1;
-?>
-<?php
+
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
@@ -43,7 +40,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -280,9 +277,9 @@ while($rowss = mysqli_fetch_array($sql2)){
 							b.Competencia
 							
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
 							
@@ -359,7 +356,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 								
 									}
 	
-									$sqli = "select * from tbcompetenciaRelacao where fk_IdCompetencia = '$idcompetencia' and fk_IdCandidato='$idcandidato'";
+									$sqli = "select * from TbCompetenciaRelacao where fk_IdCompetencia = '$idcompetencia' and fk_IdCandidato='$idcandidato'";
 									
 									$sqli2 = mysqli_query($conn,$sqli);
 	
@@ -371,7 +368,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 									}
 									else{
 	
-									if(mysqli_query($conn,"insert into tbcompetenciaRelacao(fk_IdCandidato,fk_IdCompetencia)
+									if(mysqli_query($conn,"insert into TbCompetenciaRelacao(fk_IdCandidato,fk_IdCompetencia)
 										values('$idcandidato ','$idcompetencia');")){
 											
 										

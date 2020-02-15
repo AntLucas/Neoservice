@@ -1,9 +1,13 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
 <?php 
 session_start();
-?>
-<?php
+include_once("../assets/lib/dbconnect.php");
+if($_SESSION['Contador'] == 2){
+
+	header('Location: perfilDeEmpresa.php');
+	
+	$_SESSION['Contador'] = 0; 
+}
+$_SESSION['Contador'] +=1;
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
@@ -23,7 +27,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
 
 $idempresa = $_SESSION['idbusca'];
 
-$sql1 = "select * from tbempresas where IdEmpresa = '$idempresa'";
+$sql1 = "select * from TbEmpresas where IdEmpresa = '$idempresa'";
 $sql2 = mysqli_query($conn,$sql1);
 while($rowss = mysqli_fetch_array($sql2)){
 	$nome = utf8_encode($rowss['NmEmpresa']);
@@ -44,7 +48,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -268,7 +272,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </div>
                     <div class="col-md-2">
 					<?php
-					$query = mysqli_query($conn,"select * from tbsolicitacao where fk_IdEmpresa = '$idempresa' and fk_IdCandidato='$idcandidato'");
+					$query = mysqli_query($conn,"select * from TbSolicitacao where fk_IdEmpresa = '$idempresa' and fk_IdCandidato='$idcandidato'");
 					$rown = mysqli_num_rows($query);
 					if($rown > 0){
 					?>
@@ -292,7 +296,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <p>VAGAS</p>
                              <div class="col-md-6">
 								<?php
-							$if = "select * from tbvagas where fk_IdEmpresa = '$idempresa';";
+							$if = "select * from TbVagas where fk_IdEmpresa = '$idempresa';";
 							$if2 = mysqli_query($conn,$if);
 							
 							while($ifrow = mysqli_fetch_array($if2)){
@@ -421,7 +425,7 @@ if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
 	
 	
 	
-	$sqlil = "select * from tbsolicitacao where fk_IdCandidato = '$idcandidato' and fk_IdEmpresa='$idempresa'";
+	$sqlil = "select * from TbSolicitacao where fk_IdCandidato = '$idcandidato' and fk_IdEmpresa='$idempresa'";
 	$sqlil2 = mysqli_query($conn,$sqlil);
 	$echo = mysqli_num_rows($sqlil2);
 	
@@ -429,7 +433,7 @@ if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
 		
 	}
 	else{
-	if(mysqli_query($conn,"insert into tbsolicitacao(fk_IdEmpresa,fk_IdCandidato) values('$idempresa','$idcandidato')")){
+	if(mysqli_query($conn,"insert into TbSolicitacao(fk_IdEmpresa,fk_IdCandidato) values('$idempresa','$idcandidato')")){
 		
 	}
 	else{

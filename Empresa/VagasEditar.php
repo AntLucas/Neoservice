@@ -1,17 +1,14 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-<?php 
+<?php
 session_start();
+include_once("../assets/lib/dbconnect.php");
 if($_SESSION['Contador'] == 2){
-	echo "aeeeee";
+
 	header('Location: VagasEditar.php');
 	
 	$_SESSION['Contador'] = 0; 
 }
 $_SESSION['Contador'] +=1;
-?>
-					
-<?php
-$_SESSION['Contador'] = 1;
+
 	$idvaga = $_SESSION['idvaga'];
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
@@ -35,7 +32,7 @@ $_SESSION['Contador'] = 1;
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbempresas where idempresa = $idempresa");
+						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -153,17 +150,17 @@ $_SESSION['Contador'] = 1;
                     <a href="" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
                         <span class="badge badge-pill badge-warning notification">
-						<?php
+							<?php
 						$slqs = mysqli_query($conn,"select a.NmCandidato,
 a.IdCandidato,
 b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
 						echo"$lins";
@@ -184,10 +181,10 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa") or die (mysqli_error());
 echo"Notificações";
 
@@ -310,7 +307,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                             <p>VAGAS</p>
                              <div class="col-md-6">
 								<?php
-							$if = mysqli_query($conn,"select * from tbvagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
+							$if = mysqli_query($conn,"select * from TbVagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
 							
 							while($ifrow = mysqli_fetch_array($if)){
 							$vag = utf8_encode($ifrow['vaga']);
@@ -390,11 +387,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 									$hora = $_POST['horario'];
 									$desc = $_POST['descricao'];
 									
-									echo"$nome  $sal  $hora  $desc";
 									
-									if(mysqli_query($conn,"update tbvagas set vaga = '$nome', salario = '$sal', horario = '$hora' , descricao = '$desc' where fk_IdEmpresa = '$idempresa' and idvaga = $idvaga;")){
+									
+									if(mysqli_query($conn,"update TbVagas set vaga = '$nome', salario = '$sal', horario = '$hora' , descricao = '$desc' where fk_IdEmpresa = '$idempresa' and IdVaga = $idvaga;")){
 										echo"<center><div class='alert alert-success'>Editado com sucesso!</div></center>";
-										echo"$idempresa";
+										
 									}
 									else{
 										echo"erro ao editar";
@@ -402,7 +399,7 @@ while($lc = @mysqli_fetch_array($slq) ){
 									
 								}
 								else{
-									echo"no";
+									
 								}
 								?>
                             

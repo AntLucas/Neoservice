@@ -92,13 +92,13 @@ error_reporting(0);
 		}
 	}
 	
-	window.onload = function() {
-    var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
-    recaptcha.required = true;
-    recaptcha.oninvalid = function(e) {
-    alert("Você é um robô? Se não, por favor complete o captcha.");
-      }
-   }
+	//window.onload = function() {
+    //var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
+   // recaptcha.required = true;
+   // recaptcha.oninvalid = function(e) {
+   // alert("Você é um robô? Se não, por favor complete o captcha.");
+   //   }
+  // }
    
     </script>
 	
@@ -166,7 +166,7 @@ error_reporting(0);
 										<input name="cidade" type="text" id="cidade" readonly="true" size="40" class="form-control" placeholder="Cidade *" /><p />
 										<input name="uf" type="text" id="uf" readonly="true" size="2" class="form-control" placeholder="Estado *" /><p />
 									 </form>
-									<div class="g-recaptcha" data-sitekey="6LdjfHgUAAAAABMPodoRp08r_wMK5Q39SgWFdgQ8"></div>
+									<!--<div class="g-recaptcha" data-sitekey="6LdjfHgUAAAAABMPodoRp08r_wMK5Q39SgWFdgQ8"></div>-->
 									<input type="submit" name="env" class="btnRegister" value="Registrar" onclick="return validarSenha()"/>
                                     </div>
                                 </div>
@@ -180,7 +180,7 @@ error_reporting(0);
             </div>
             </div>
             <script src="../assets/js/ceuEstrelado.js"></script>
-			<script src='https://www.google.com/recaptcha/api.js'></script>
+			<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 </body>
 </html>
 
@@ -232,12 +232,8 @@ error_reporting(0);
 		$sql = @mysqli_query($conn,"insert into TbCandidatos(NmUsuario,Senha,NmCandidato,Email,bdat,cep,estado,cidade,bairro,rua,biografia,xp,ingles,formacao,profissao,foto)
 		values('$nmUsu','$senha','$nmEsb','$email','$bday','$cep','$estado','$cidade','$bairro','$rua','Edite esse campo','Edite esse campo','Edite esse campo','Edite esse campo','Sem Profissão','user.jpg');") or die (mysqli_error());
  
-	echo"
-	<script>
-	alert('aeee');
-	</script>
-	";
-	echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, aguarde um instante.</div>";
+
+	echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, agora poderá efetuar login.</div>";
 	
  
 	}

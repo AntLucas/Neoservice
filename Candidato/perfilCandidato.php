@@ -1,8 +1,8 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
 <?php 
 session_start();
 ?>
+<?php include_once("../assets/lib/dbconnect.php"); ?>
+
 <?php
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
@@ -34,7 +34,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -273,9 +273,9 @@ while($rowss = mysqli_fetch_array($sql2)){
 							b.Competencia
 							
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
 							

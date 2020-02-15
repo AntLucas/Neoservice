@@ -1,5 +1,58 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
+<?php
+session_start();
 
+?>
+<?php include_once("../assets/lib/dbconnect.php"); ?>
+<?php 
+			if(isset($_POST['env']) && $_POST['env'] == "login"){
+			if($_POST['Temail'] && $_POST['Tsenha']){
+			$Temail = $_POST['Temail'];
+			$Tsenha = $_POST['Tsenha'];
+			
+			$sql="select * from TbCandidatos where Email = '$Temail' and Senha = '$Tsenha';";		
+			$sql2 = mysqli_query($conn,$sql);
+			$row = mysqli_num_rows($sql2);
+			$linha = mysqli_fetch_assoc($sql2);
+			
+			
+			
+			
+			if($row > 0){
+				$_SESSION['Contador'] = 1;
+				$_SESSION['nome'] = $linha['NmCandidato'];
+				$_SESSION['IdCandidato'] = $linha['IdCandidato'];
+				$_SESSION['NmCandidato'] = $linha['NmCandidato'];
+				$_SESSION['NmUsuario'] = $linha['NmUsuario'];
+				$_SESSION['Email'] = $linha['Email'];
+				$_SESSION['Senha'] = $linha['Senha'];
+				$_SESSION['cep']    = $linha['cep'];  
+				$_SESSION['estado']  = $linha['estado']; 
+				$_SESSION['cidade']  = $linha['cidade']; 
+				$_SESSION['bairro'] = $linha['bairro'];  
+				$_SESSION['rua']  = $linha['rua'];    
+				$_SESSION['biografia']= $linha['biografia'];
+				$_SESSION['xp']    = $linha['xp'];   
+				$_SESSION['ingles']  = $linha['ingles']; 
+				$_SESSION['formacao'] = $linha['formacao'];
+				$_SESSION['profissao'] = $linha['profissao'];
+				
+				header('Location: https://neo-service.000webhostapp.com/Candidato/telaInicialCandidato.php');
+				echo "<div class='alert alert-success'>Logado com sucesso!</div>";
+			}
+			
+			else{
+				echo "<div class='alert alert-danger'>Email ou senha inválidos!</div>";
+			}
+		}
+		else{
+			echo "<div class='alert alert-warning'>Preencha todos os campos</div>";
+		}
+	}
+	else{
+		
+	}
+	
+	?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -78,58 +131,7 @@
 					</div>
 				</form>
 				
-					<?php 
-			if(isset($_POST['env']) && $_POST['env'] == "login"){
-			if($_POST['Temail'] && $_POST['Tsenha']){
-			$Temail = $_POST['Temail'];
-			$Tsenha = $_POST['Tsenha'];
-			
-			$sql="select * from TbCandidatos where Email = '$Temail' and Senha = '$Tsenha';";		
-			$sql2 = mysqli_query($conn,$sql);
-			$row = mysqli_num_rows($sql2);
-			$linha = mysqli_fetch_assoc($sql2);
-			
-			
-			
-			
-			if($row > 0){
-			
-				
-				session_start();
-				$_SESSION['Contador'] = 1;
-				$_SESSION['IdCandidato'] = $linha['IdCandidato'];
-				$_SESSION['NmCandidato'] = $linha['NmCandidato'];
-				$_SESSION['NmUsuario'] = $linha['NmUsuario'];
-				$_SESSION['Email'] = $linha['Email'];
-				$_SESSION['Senha'] = $linha['Senha'];
-				$_SESSION['cep']    = $linha['cep'];  
-				$_SESSION['estado']  = $linha['estado']; 
-				$_SESSION['cidade']  = $linha['cidade']; 
-				$_SESSION['bairro'] = $linha['bairro'];  
-				$_SESSION['rua']  = $linha['rua'];    
-				$_SESSION['biografia']= $linha['biografia'];
-				$_SESSION['xp']    = $linha['xp'];   
-				$_SESSION['ingles']  = $linha['ingles']; 
-				$_SESSION['formacao'] = $linha['formacao'];
-				$_SESSION['profissao'] = $linha['profissao'];
-				
-				header('Location: telaInicialCandidato.php');
-				echo "<div class='alert alert-success'>Logado com sucesso!</div>";
-			}
-			
-			else{
-				echo "<div class='alert alert-danger'>Email ou senha inválidos!</div>";
-			}
-		}
-		else{
-			echo "<div class='alert alert-warning'>Preencha todos os campos</div>";
-		}
-	}
-	else{
-		
-	}
-	
-	?>
+					
 			</div>
 		</div>
 	</div>

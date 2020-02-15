@@ -1,4 +1,6 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
+<?php 
+session_start();
+include_once("../assets/lib/dbconnect.php"); ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -165,13 +167,13 @@ function validarCNPJ(cnpj) {
 		}
 	}
 	
-	window.onload = function() {
-    var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
-    recaptcha.required = true;
-    recaptcha.oninvalid = function(e) {
-    alert("Você é um robô? Se não, por favor complete o captcha.");
-      }
-   }
+	//window.onload = function() {
+    //var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
+    //recaptcha.required = true;
+    //recaptcha.oninvalid = function(e) {
+   // alert("Você é um robô? Se não, por favor complete o captcha.");
+   //   }
+   //}
 	
 	</script>
 <!------ Include the above in your HEAD tag ---------->
@@ -228,7 +230,7 @@ function validarCNPJ(cnpj) {
 									 <div class="form-group">
                                             <input type="text" name="numero" class="form-control"  placeholder="Número *" value="" />
                                         </div>
-									<div class="g-recaptcha" data-sitekey="6LdjfHgUAAAAABMPodoRp08r_wMK5Q39SgWFdgQ8"></div>
+									<!--<div class="g-recaptcha" data-sitekey="6LdjfHgUAAAAABMPodoRp08r_wMK5Q39SgWFdgQ8"></div>-->
 									<input type="submit" name="env" class="btnRegister" value="Registrar" onclick="return validarSenha()"/>
                                     </div>
                                 </div>
@@ -242,13 +244,15 @@ function validarCNPJ(cnpj) {
 			</div>
 			
 			<script src="../assets/js/ceuEstrelado.js"></script>
-			<script src='https://www.google.com/recaptcha/api.js'></script>
+			<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 </body>
 </html>
 
 <?php
 	if(isset($_POST['env']) && $_POST['env'] == "Registrar"){
+	    
 		if($_POST['nmUsu'] || $_POST['nmEmpresa'] || $_POST['razaoSocial'] || $_POST['cnpj'] || $_POST['email'] || $_POST['senha'] || $_POST['senha2'] || $_POST['cep'] || $_POST['rua'] || $_POST['bairro'] || $_POST['cidade'] || $_POST['estado'] || $_POST['numero']){
+		   
 			$nmUsu = $_POST['nmUsu'];
 			$nmEmpresa = $_POST['nmEmpresa'];
 			$razaoSocial = $_POST['razaoSocial'];
@@ -271,7 +275,7 @@ function validarCNPJ(cnpj) {
 	$sqliii = mysqli_query($conn,"select * from TbEmpresas where CNPJ = '$cnpj'");
 
 	if(mysqli_num_rows($sqli)>0){
-	
+
 	echo "<div class='alert alert-danger'>Esse nome de usuário já está sendo utilizado!</div>";
 		
 	
@@ -286,7 +290,7 @@ function validarCNPJ(cnpj) {
 	}
 	
 	elseif(mysqli_num_rows($sqliii)>0){
-	
+
 	echo "<div class='alert alert-danger'>Esse CNPJ já está sendo utilizado!</div>";
 	}
 	
@@ -295,12 +299,7 @@ function validarCNPJ(cnpj) {
 	
 
 	else{
-			
-			
-	$sql = mysqli_query($conn,"insert into TbEmpresas(NmUsuario,NmEmpresa,Razao,CNPJ,Email,Senha,CEP,Endereco,Bairro,Cidade,Estado,Numero,biografia,foto)
-		values('$nmUsu','$nmEmpresa','$razaoSocial','$cnpj','$email','$senha',$cep,'$rua','$bairro','$cidade','$estado',$numero,'Edite esse campo','user.jpg');") or die (mysqli_error());
-	
-		$nmUsu = $_POST['nmUsu'];
+		    $nmUsu = $_POST['nmUsu'];
 			$nmEmpresa = $_POST['nmEmpresa'];
 			$razaoSocial = $_POST['razaoSocial'];
 			$cnpj = $_POST['cnpj'];
@@ -313,10 +312,29 @@ function validarCNPJ(cnpj) {
 			$cidade = $_POST['cidade'];
 			$estado = $_POST['uf'];
 			$numero = $_POST['numero'];
-	echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, aguarde um instante.</div>";
+			
+			
+			if ($result = mysqli_query($conn,"insert into TbEmpresas(NmUsuario,Senha,Email,NmEmpresa,CNPJ,Razao,CEP,Estado,Cidade,Bairro,Endereco,Numero,biografia,foto)
+	    	values('$nmUsu','$senha','$email','$nmEmpresa','$cnpj','$razaoSocial',$cep,'$estado','$cidade','$bairro','$rua',$numero,'Edite esse campo','user.jpg')")) {
+            echo "Returned rows are: " . mysqli_num_rows($result);
+  
+            mysqli_free_result($result);
+            }
+            else
+            {
+                echo"<script>alert('erro')</script>";
+            }
+            //$sql = mysqli_query($conn,"insert into TbEmpresas(NmUsuario,Senha,Email,NmEmpresa,CNPJ,Razao,CEP,Estado,Cidade,Bairro,Endereco,Numero,biografia,foto)
+	    //	values('$nmUsu','$senha','$email','$nmEmpresa','$cnpj','$razaoSocial',$cep,'$estado','$cidade','$bairro','$rua',$numero,'Edite esse campo','user.jpg');") or die (mysqli_error());
+		
+		
+		
+		
+		
+echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, agora poderá efetuar seu login.</div>";
 	
- 
 	}
+
 }
 else{
 

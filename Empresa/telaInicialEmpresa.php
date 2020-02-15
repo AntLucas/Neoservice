@@ -1,15 +1,11 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
-
 <?php
+session_start();
+include_once("../assets/lib/dbconnect.php"); 
 
 $email = $_SESSION['Email'];
 $senha = $_SESSION['Senha'];
 
-
-$sql = mysql_query("select * from TbEmpresas  where Email = $email and Senha = $senha;");
-
-
+$sql = mysql_query("select * from TbEmpresas  where Email = $email and Senha = $senha");
 
 echo"<br>Bem Vindo  ".$_SESSION['IdEmpresa'];
 echo"<br>Bem Vindo  ".$_SESSION['NmUsuario'];
@@ -66,7 +62,7 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
+from TbCandidatos a
 inner join tbsolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
 inner join tbempresas b

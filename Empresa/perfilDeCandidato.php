@@ -1,11 +1,6 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
 <?php 
 session_start();
-
-?>
-
-							
-<?php
+include_once("../assets/lib/dbconnect.php");
 $_SESSION['Contador'] = 1;
 				
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
@@ -24,7 +19,7 @@ $_SESSION['Contador'] = 1;
 	$nme = utf8_encode($_SESSION['NmEmpresa']);
 
 	$idcand2 = $_SESSION['idbusca'];
-	$sqle = mysqli_query($conn,"select * from tbcandidatos where IdCandidato = '$idcand2'");
+	$sqle = mysqli_query($conn,"select * from TbCandidatos where IdCandidato = '$idcand2'");
 	while($while = mysqli_fetch_assoc($sqle)){
 		$NmCs = utf8_encode($while['NmCandidato']);
 		$emails =  utf8_encode($while['Email']);
@@ -45,7 +40,7 @@ $_SESSION['Contador'] = 1;
 	if(isset($_POST['contato']) && $_POST['contato'] == "contatos"){
 								$id= $_POST['id'];
 								
-								if(mysqli_query($conn,"insert into tbcontatos (fk_IdEmpresa,fk_IdCandidato)values($idempresa,$id)")){
+								if(mysqli_query($conn,"insert into TbContatos (fk_IdEmpresa,fk_IdCandidato)values($idempresa,$id)")){
 									header('Location: chatEmpresa.php');
 								}
 								else{
@@ -61,7 +56,7 @@ $_SESSION['Contador'] = 1;
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbempresas where idempresa = $idempresa");
+						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -179,17 +174,17 @@ $_SESSION['Contador'] = 1;
                     <a href="" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
                         <span class="badge badge-pill badge-warning notification">
-						<?php
+							<?php
 						$slqs = mysqli_query($conn,"select a.NmCandidato,
 a.IdCandidato,
 b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
 						echo"$lins";
@@ -210,10 +205,10 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa") or die (mysqli_error());
 echo"Notificações";
 
@@ -367,7 +362,7 @@ else{
                     </div>
                     <div class="col-md-2">
 					<?php
-					$sqly =mysqli_query($conn,"Select * from tbcontatos where fk_IdEmpresa=$idempresa and fk_IdCandidato=$idcand2");
+					$sqly =mysqli_query($conn,"Select * from TbContatos where fk_IdEmpresa=$idempresa and fk_IdCandidato=$idcand2");
 					$sqly2 = mysqli_num_rows($sqly);
 					
 					if($sqly2 >= 1){
@@ -396,9 +391,9 @@ else{
 							b.Competencia
 							
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcand2;";
 							

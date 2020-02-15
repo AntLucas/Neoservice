@@ -1,4 +1,6 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
+<?php 
+session_start();
+include_once("../assets/lib/dbconnect.php"); ?>
 <?php
 
 error_reporting(0);
@@ -6,13 +8,12 @@ ini_set(“display_errors”, 0 );
 
 ?>
 <?php
-session_start();
+
 $id = $_SESSION['IdCandidato'];
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 
 
  if($_SESSION['Contador'] == 2){
-	echo "aeeeee";
 	header('Location: chatCandidato.php');
 	
 	$_SESSION['Contador'] = 0; 
@@ -32,7 +33,7 @@ $_SESSION['Contador'] +=1;
 
 <html class=''>
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -846,7 +847,7 @@ $_SESSION['Contador'] +=1;
 							<p class="name"><?php echo"<input type='hidden' name='clicarcontato' value='clicou'><input type='hidden' name='nomeemp' value='$nome'/>$nome";  ?></p>
 							<p class="preview"><?php
 							
-							$ultimo = mysqli_query($conn,"select max(IdMensagem) from Tbmensagens where fk_IdContato = $idcont;");
+							$ultimo = mysqli_query($conn,"select max(IdMensagem) from TbMensagens where fk_IdContato = $idcont;");
 							while($rowss = mysqli_fetch_array($ultimo)){
 					
 							$mensagemultimo = utf8_encode($rowss['max(IdMensagem)']);
@@ -891,7 +892,7 @@ $_SESSION['Contador'] +=1;
 				}
 				
 				$i = $_SESSION['idemp'];
-				$query = mysqli_query($conn,"select foto from tbempresas where idempresa = $i");
+				$query = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $i");
 				while($while2 = mysqli_fetch_assoc($query)){
 					$img3 = utf8_encode($while2['foto']);
 				}
@@ -958,12 +959,12 @@ $_SESSION['Contador'] +=1;
 		d.IdContato
 
 		from TbEmpresas a inner join
-		tbcontatos d
+		TbContatos d
 		on a.IdEmpresa = d.fk_IdEmpresa
 		inner join TbCandidatos b 
 		on b.IdCandidato = d.fk_IdCandidato
 		inner join TbMensagens c
-		on c.fk_idcontato = d.idcontato
+		on c.fk_IdContato = d.IdContato
 		where d.IdContato = $contatoconversa;");
 		
 		

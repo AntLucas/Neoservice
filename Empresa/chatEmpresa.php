@@ -1,12 +1,10 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
 <?php
-
+session_start();
+include_once("../assets/lib/dbconnect.php"); 
 error_reporting(0);
 ini_set(“display_errors”, 0 );
 
-?>
-<?php
-session_start();
+
 $id = $_SESSION['IdEmpresa'];
 
 
@@ -35,7 +33,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 
 <html class=''>
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbempresas where idempresa = $idempresa");
+						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -821,7 +819,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 				?>
 				<form method="post" action="chatEmpresa.php" >
 				<?php
-				if(isset($_SESSION['idcontato']) && $_SESSION['idcontato'] == $idcont){
+				if(isset($_SESSION['IdContato']) && $_SESSION['idcontato'] == $idcont){
 					?><li class="contact active"> <?php
 				}
 				else{
@@ -841,7 +839,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 							<p class="name"><?php echo"<input type='hidden' name='clicarcontato' value='clicou'><input type='hidden' name='nomecan' value='$nome'/>$nome";  ?></p>
 							<p class="preview"><?php
 							
-							$ultimo = mysqli_query($conn,"select max(IdMensagem) from Tbmensagens where fk_IdContato = $idcont;");
+							$ultimo = mysqli_query($conn,"select max(IdMensagem) from TbMensagens where fk_IdContato = $idcont;");
 							while($rowss = mysqli_fetch_array($ultimo)){
 					
 							$mensagemultimo = utf8_encode($rowss['max(IdMensagem)']);
@@ -886,7 +884,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 					
 				}
 				$i = $_SESSION['idcan'];
-				$sqli = mysqli_query($conn,"select foto from tbCandidatos where idcandidato = $i");
+				$sqli = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $i");
 				while($ja = mysqli_fetch_assoc($sqli)){
 				$imgs = utf8_encode($ja['foto']);
 				}
@@ -957,12 +955,12 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 		d.IdContato
 
 		from TbEmpresas a inner join
-		tbcontatos d
+		TbContatos d
 		on a.IdEmpresa = d.fk_IdEmpresa
 		inner join TbCandidatos b 
 		on b.IdCandidato = d.fk_IdCandidato
 		inner join TbMensagens c
-		on c.fk_idcontato = d.idcontato
+		on c.fk_IdContato = d.IdContato
 		where d.IdContato = $contatoconversa;");
 		
 		

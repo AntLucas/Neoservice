@@ -1,16 +1,12 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
-<?php 
+<?php
 session_start();
+include_once("../assets/lib/dbconnect.php"); 
  if($_SESSION['Contador'] == 2){
-	echo "aeeeee";
 	header('Location: CompetenciasExcluir.php');
 	
 	$_SESSION['Contador'] = 0; 
 }
 $_SESSION['Contador'] +=1;
-?>
-<?php
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
@@ -40,7 +36,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -276,9 +272,9 @@ while($rowss = mysqli_fetch_array($sql2)){
 							b.Competencia
 							
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
 							
@@ -305,9 +301,9 @@ while($rowss = mysqli_fetch_array($sql2)){
 							b.Competencia,
 							b.IdCompetencia
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
 							
@@ -340,7 +336,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 								$idcompetencia = $_POST['idcomp'];
 							
 								
-								if(mysqli_query($conn,"delete from TbCompetenciarelacao where fk_IdCandidato = '$idcandidato' and fk_IdCompetencia = '$idcompetencia'")){
+								if(mysqli_query($conn,"delete from TbCompetenciaRelacao where fk_IdCandidato = '$idcandidato' and fk_IdCompetencia = '$idcompetencia'")){
 									echo"excluido com sucesso";
 								}
 							}

@@ -1,18 +1,16 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
 <?php 
-session_start();
-?>
-	<?php
-						if(isset($_POST['perfil']) && $_POST['perfil']=="perfils"){
-						$idemp = $_POST['idd'];
-						$_SESSION['idbusca'] = $idemp;
-						echo"".$_SESSION['idbusca'];
-				header('Location: perfilDeEmpresa.php'); 	
-						}
+session_start();    
+include_once("../assets/lib/dbconnect.php");
 
-?>
+	if(isset($_POST['perfil']) && $_POST['perfil']=="perfils")
+	{
+		$idemp = $_POST['idd'];
+		$_SESSION['idbusca'] = $idemp;
+		header('Location: perfilDeEmpresa.php');
+	}
+	else{
+		}
 
-<?php
 $pesquisa = $_SESSION['pesquisa'];
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
@@ -33,21 +31,21 @@ $profissao	= utf8_encode($_SESSION['profissao']);
 
 $sql = "select * from TbCandidatos  where Email = '$email' and Senha = '$senha';";
 $sql2 = mysqli_query($conn, $sql);
-while($rowss = mysqli_fetch_array($sql2)){
-
+while($rowss = mysqli_fetch_array($sql2))
+{
 	$bday = utf8_encode($rowss['bdat']);
 	$nascimento = implode("/", array_reverse(explode("-", $bday)));
-	
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
-						while($assoc = mysqli_fetch_assoc($imagem)){
-							$img = utf8_encode($assoc['foto']);
-						}
-						?>
+	$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
+	while($assoc = mysqli_fetch_assoc($imagem))
+	{
+	$img = utf8_encode($assoc['foto']);
+	}
+?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -106,16 +104,14 @@ while($rowss = mysqli_fetch_array($sql2)){
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
-							while($row = mysqli_fetch_array($sqli2)){
-							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							while($row = mysqli_fetch_array($sqli2))
+							{
+								$Usuario = $row['NmUsuario'];
+								echo"<option value='$Usuario'></option>";
 							}
 							?>
 							</datalist>
-                           
 							</form>
-							
-							
                         </div>
                     </div>
                 </div>
@@ -126,7 +122,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <span>Painel Geral</span>
                         </li>
                         <li class="sidebar">
-                            <a href="TelaInicialCandidato.php">
+                            <a href="telaInicialCandidato.php">
                                 <i class="fa fa-globe"></i>
                                 <span>Início</span>
                             </a>
@@ -142,6 +138,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 
                                         </a>
                                     </li>
+									
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
@@ -162,7 +159,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 
                     <a href="#" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <span class="badge badge-pill badge-warning notification">3</span>
+                        <span class="badge badge-pill badge-warning notification"></span>
                     </a>
                     <div class="dropdown-menu notifications" aria-labelledby="dropdownMenuMessage">
                         <div class="notifications-header">
@@ -170,7 +167,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                             Notifications
                         </div>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
+                        <!--<a class="dropdown-item" href="#">
                             <div class="notification-content">
                                 <div class="icon">
                                     <i class="fas fa-check text-success border border-success"></i>
@@ -208,7 +205,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </a>-->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-center" href="#">View all notifications</a>
                     </div>
@@ -244,22 +241,17 @@ while($rowss = mysqli_fetch_array($sql2)){
 				  <p class="lead">
 				  </p>
 				</div>
-				
-				
-				
-				
-		
 				<div class="row">	
-			<?php 
+		<?php 
 		$sqlpesquisa = "select * from TbEmpresas where NmEmpresa = '$pesquisa'";
 		$sqlpesquisa2 = mysqli_query($conn,$sqlpesquisa);
 		
-		while($lc = @mysqli_fetch_array($sqlpesquisa2) ){
-		$nmempresa = $lc['NmEmpresa'];
-		$idempresa = $lc['IdEmpresa'];
-		$img2 = utf8_encode($lc['foto']);
+		while($lc = @mysqli_fetch_array($sqlpesquisa2) )
+		{
+			$nmempresa = $lc['NmEmpresa'];
+			$idempresa = $lc['IdEmpresa'];
+			$img2 = utf8_encode($lc['foto']);
 		?>				
-		
 				  <div class="col-sm-6">
 					<div class="card">
 					  <h4 class="card-header text-right bg-dark text-white"><?php echo"$nmempresa";?>
@@ -268,11 +260,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 						<input type="submit" class="btn btn-raised btn-danger" title="Ver perfil de EMPRESA" value="Perfil"/>
 						<input type="hidden" name="perfil" value="perfils"/>
 						<input type="hidden" name="idd" value="<?php echo"$idempresa"?>">
-						</form>
-					
-							
-						 
-						  
+						</form>  
 					  </div>
 					  </h4>
 					  <div class="card-body">
@@ -281,12 +269,9 @@ while($rowss = mysqli_fetch_array($sql2)){
 						  </div>
 						  <br>
 						<h4 class="card-title">Vagas</h4>
-						
-
-                           
                              <div class="col-md-6">
-								<?php
-							$if = "select * from tbvagas where fk_IdEmpresa = '$idempresa';";
+		<?php
+							$if = "select * from TbVagas where fk_IdEmpresa = '$idempresa';";
 							$if2 = mysqli_query($conn,$if);
 							while($ifrow = mysqli_fetch_array($if2)){
 							$vag = utf8_encode($ifrow['vaga']);
@@ -296,7 +281,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                            
 							
                             
-                    ?>
+        ?>
 						  <p class="card-text"><center><strong><?php echo"$vag";?></strong></center></p>
 						  <p><strong>Remuneração: </strong><?php echo"R$ $sal"?></p>
 						  <p><strong>Horário: </strong><?php echo"$horario"?> </p>
@@ -304,28 +289,19 @@ while($rowss = mysqli_fetch_array($sql2)){
 						  echo"</br></br></br>";
 						 
 					  }
-							?>
+		?>
 						
 					</div>
 				  </div>
 
 				</div>
-		
-				
-				
-				
 				<br>
-
 				</div>
-				
-
-				
-				  <?php
+		<?php
 				  
-					  }
-							?>
-				  </hr>
-					
+		}
+		?>
+				  </hr>	
 					</div>
 	
 				

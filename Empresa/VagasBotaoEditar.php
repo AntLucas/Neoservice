@@ -1,13 +1,9 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-<?php 
-session_start();
-
-?>
 <?php
+session_start();
+include_once("../assets/lib/dbconnect.php"); 
 ini_set('display_errors', 0 );
 error_reporting(0);
-?>
-<?php
+
 							if($_POST['edi'] && $_POST['edi'] == "editar"){
 								$idvaga = $_POST['idvag'];
 							
@@ -20,9 +16,7 @@ error_reporting(0);
 							else{
 								
 							}
-							?>
 
-<?php
 $_SESSION['Contador'] = 1;
 				
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
@@ -47,7 +41,7 @@ $_SESSION['Contador'] = 1;
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbempresas where idempresa = $idempresa");
+						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -165,17 +159,17 @@ $_SESSION['Contador'] = 1;
                     <a href="" class="" id="dropdownMenuNotification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
                         <span class="badge badge-pill badge-warning notification">
-						<?php
+							<?php
 						$slqs = mysqli_query($conn,"select a.NmCandidato,
 a.IdCandidato,
 b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
 						echo"$lins";
@@ -196,10 +190,10 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa") or die (mysqli_error());
 echo"Notificações";
 
@@ -320,7 +314,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                             <p>VAGAS</p>
                              <div class="col-md-6">
 								<?php
-							$if = mysqli_query($conn,"select * from tbvagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
+							$if = mysqli_query($conn,"select * from TbVagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
 							
 							while($ifrow = mysqli_fetch_array($if)){
 							$vag = utf8_encode($ifrow['vaga']);

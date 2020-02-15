@@ -1,6 +1,7 @@
 <?php
 ini_set('display_errors', 0 );
 error_reporting(0);
+
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -73,6 +74,7 @@ error_reporting(0);
 									<div class="content">
 										<h2 class="major">SOBRE O PROJETO</h2>
 										<p>O projeto tende a proporcionar uma aplicação, que possibilite auxiliar na busca de funcionários, sendo tanto estudantes quanto profissionais, de maneira prática, rápida e simples. Por esse motivo, o projeto é focado em trabalhos temporários, nos períodos em que o mercado mais necessita, sem qualquer efetivação. Para um estudante ou até mesmo uma pessoa que está atualmente desempregada.</p>
+									
 									</div>
 								</div>
 							</section>

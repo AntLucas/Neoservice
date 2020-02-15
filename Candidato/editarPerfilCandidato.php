@@ -1,20 +1,19 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-
 <?php 
 session_start();
-$idcandidato = $_SESSION['IdCandidato'];
+
 
  if($_SESSION['Contador'] >= 2){
-	echo "aeeeee";
+	
 	header('Location: editarPerfilCandidato.php');
 	
 	$_SESSION['Contador'] = 0; 
 }
 $_SESSION['Contador'] += 1;  
 
-?>
-<?php
-$idcandidato =  utf8_encode($_SESSION['IdCandidato']);
+include_once("../assets/lib/dbconnect.php");
+
+
+$idcandidato = $_SESSION['IdCandidato'];
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
 $NmC = utf8_encode($_SESSION['NmCandidato']);
@@ -42,10 +41,11 @@ while($rowss = mysqli_fetch_array($sql2)){
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbcandidatos where idcandidato = $idcandidato");
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -290,13 +290,12 @@ while($rowss = mysqli_fetch_array($sql2)){
                         <div class="profile-work">
                             <p>COMPETÊNCIAS</p>
                             <?php
-							$if = "select a.NmCandidato,
+                            $if = "select a.NmCandidato,
 							b.Competencia
-							
 							from TbCandidatos a
-							inner join tbcompetenciaRelacao c
+							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
-							inner join tbcompetencias b
+							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
 							
@@ -307,8 +306,6 @@ while($rowss = mysqli_fetch_array($sql2)){
                             echo"$comp<br/>";
 							}
 							?>
-							
-						
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -441,7 +438,7 @@ if(isset($_POST['env']) && $_POST['env'] == "altera"){
 	if($_POST['nomeu'] && $_POST['senha'] && $_POST['nomec'] && $_POST['email'] && $_POST['rua'] && $_POST['biografia'] && $_POST['experiencias'] && $_POST['ingles'] && $_POST['formacao'] && $_POST['profissao'] ){
 		
 		
-		$idcandidato =  utf8_encode($_SESSION['IdCandidato']);
+$idcandidato = $_SESSION['IdCandidato'];
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
 $NmC = utf8_encode($_SESSION['NmCandidato']);

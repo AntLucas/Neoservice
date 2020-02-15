@@ -1,5 +1,8 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
 <?php 
+
+    session_start();
+	include_once("../assets/lib/dbconnect.php"); 
+					
 	if(isset($_POST['env']) && $_POST['env'] == "login"){
 		if($_POST['Temail'] && $_POST['Tsenha']){
 			$Temail = $_POST['Temail'];
@@ -14,8 +17,7 @@
 			
 			if($row > 0){
 				
-				
-				session_start();
+				$_SESSION['nome'] = $linha['NmEmpresa'];
 				$_SESSION['Contador'] = 1;
 				$_SESSION['IdEmpresa'] = $linha['IdEmpresa'];
 				$_SESSION['NmEmpresa'] = $linha['NmEmpresa'];
@@ -48,7 +50,7 @@
 		
 	}
 	
-	?>
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -116,6 +118,7 @@
 						</button>
 						<input type="hidden" name="env" value="login"/>
 					</div>
+				
 
 					<div class="text-center p-t-90">
 						<a class="txt1" href="cadastroEmpresa.php">

@@ -1,15 +1,9 @@
-<?php include_once("../assets/lib/dbconnect.php"); ?>
-<?php 
-session_start();
-
-?>
 <?php
+session_start();
+include_once("../assets/lib/dbconnect.php"); 
 ini_set('display_errors', 0 );
 error_reporting(0);
-?>
 
-
-<?php
 $_SESSION['Contador'] = 1;
 	$pesquisa = $_SESSION['pesquisa'];
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
@@ -47,7 +41,7 @@ $_SESSION['Contador'] = 1;
 <!DOCTYPE html>
 <html lang="pt-br">
 <?php
-						$imagem = mysqli_query($conn,"select foto from tbempresas where idempresa = $idempresa");
+						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -172,10 +166,10 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
 						echo"$lins";
@@ -196,10 +190,10 @@ b.NmEmpresa,
 b.IdEmpresa,
 c.IdSolicitacao
 
-from tbcandidatos a
-inner join tbsolicitacao c
+from TbCandidatos a
+inner join TbSolicitacao c
 on a.IdCandidato = c.fk_IdCandidato
-inner join tbempresas b
+inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa") or die (mysqli_error());
 echo"Notificações";
 
