@@ -1,10 +1,10 @@
-<?php 
+<?php
 /*$con = @mysql_connect('localhost','root','') or die (mysql_error());
 $x1 = mysql_select_db('neoservice',$con) or die (mysql_error());*/
 $servername = "localhost";
 $database = "id12531976_neoservice";
 $username = "id12531976_antlucas";
-$password = "kkbueno007";
+$password = "senha";
 // Create connection
 $conn = mysqli_connect($servername, $username, $password, $database);
 
