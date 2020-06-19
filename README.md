@@ -17,9 +17,6 @@
 
 - [Início Rápido](#início-rápido)
 - [Informações](#informações)
-- [Versão](#versão)
-- [Desenvolvedores](#desenvolvedores)
-- [Obrigados](#obrigados)
 - [Copyright](#copyright)
 
 ## Início Rápido
