@@ -2,15 +2,15 @@
 session_start();
 include_once("../assets/lib/dbconnect.php");
 if($_SESSION['Contador'] == 2){
-	
+
 	header('Location: editarPerfilEmpresa.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 
 
-				
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
 	$razao =utf8_encode($_SESSION['razao']) ;
@@ -72,7 +72,7 @@ $_SESSION['Contador'] +=1;
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$nme";?>
+                        <span class="user-name"><?php echo utf8_decode("$nme");?>
                         </span>
                         <span class="user-role">Empresa</span>
                     </div>
@@ -82,28 +82,28 @@ $_SESSION['Contador'] +=1;
                 <div>
                     <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
 							while($row = mysqli_fetch_array($sqli)){
 							$competencia = utf8_encode($row['competencia']);
-							echo"<option value='$competencia'></option>";
+							echo utf8_decode("<option value='$competencia'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -128,7 +128,7 @@ $_SESSION['Contador'] +=1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -164,7 +164,7 @@ on a.IdCandidato = c.fk_IdCandidato
 inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
-						echo"$lins";
+						echo utf8_decode("$lins");
 						?>
 						</span>
                     </a>
@@ -195,16 +195,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -214,10 +214,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo"<br>$nmcandidato Solicitou um contato$echo!<br>";
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+
 
 
 ?>
@@ -226,18 +226,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -245,11 +245,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -284,26 +284,26 @@ while($lc = @mysqli_fetch_array($slq) ){
 					</form>
             <form method="post">
                 <div class="row">
-				
+
                     <div class="col-md-4">
                         <div class="profile-img">
-						
+
                             <img src="../assets/images/fotos/<?php echo"$img"?>" alt=""/>
-                            
-                               
+
+
                         </div>
-						
+
                     </div>
-					
+
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                         <?php echo"$nme";?>
+                                         <?php echo utf8_decode("$nme");?>
                                     </h5>
-                               
-                                       
 
-                                    
+
+
+
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -315,7 +315,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                             </ul>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                    <div class="col-md-4">
@@ -324,11 +324,11 @@ while($lc = @mysqli_fetch_array($slq) ){
                              <div class="col-md-6">
 								<?php
 							$if = mysqli_query($conn,"select * from TbVagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
-							
+
 							while($ifrow = mysqli_fetch_array($if)){
 							$vag = utf8_encode($ifrow['vaga']);
 							$sal = utf8_encode($ifrow['salario']);
-                          echo"$vag,<br/>R$ $sal<br/><br/>";
+                          echo utf8_decode("$vag,<br/>R$ $sal<br/><br/>");
 							}
 							?>
                             </div>
@@ -337,13 +337,13 @@ while($lc = @mysqli_fetch_array($slq) ){
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-							
+
 							<div class="row">
                                             <div class="col-md-6">
                                                 <label>Nome de usuário</label>
                                             </div>
                                     <div class="col-md-6">
-       							<input type="text" class="form-control" id="usuario"  name="usuario" value="<?php echo"$nmu";?>"required/>
+       							<input type="text" class="form-control" id="usuario"  name="usuario" value="<?php echo utf8_decode("$nmu");?>"required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -351,7 +351,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Nome da Empresa</label>
                                             </div>
                                     <div class="col-md-6">
-       							<input type="text" class="form-control" id="empresa"  name="empresa" value="<?php echo"$nme";?>"required/>
+       							<input type="text" class="form-control" id="empresa"  name="empresa" value="<?php echo utf8_decode("$nme");?>"required/>
         							</div>
                                         </div>
 										<div class="row">
@@ -359,7 +359,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Senha</label>
                                             </div>
                                     <div class="col-md-6">
-       							<input type="password" class="form-control" id="senha"  name="senha" value="<?php echo"$senha";?>"required/>
+       							<input type="password" class="form-control" id="senha"  name="senha" value="<?php echo utf8_decode("$senha");?>"required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -367,7 +367,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>CNPJ</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="cnpj" name="cnpj" value="<?php echo "$cnpj";?>"required/>
+       							<input type="text" class="form-control" id="cnpj" name="cnpj" value="<?php echo   utf8_decode("$cnpj");?>"required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -375,7 +375,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Razão Social</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="razao" name="razao" value="<?php echo "$razao";?>"required/>
+       							<input type="text" class="form-control" id="razao" name="razao" value="<?php echo utf8_decode("$razao");?>"required/>
         							</div>
                                         </div>
 										<div class="row">
@@ -383,10 +383,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>E-mail</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="email" class="form-control" id="email" name="email" value="<?php echo "$email";?>"required/>
+       							<input type="email" class="form-control" id="email" name="email" value="<?php echo utf8_decode("$email");?>"required/>
         							</div>
                                         </div>
-                                        
+
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
@@ -394,7 +394,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>CEP</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="cep" name="cep" value="<?php echo "$cep ";?>"required/>                
+                                <input type="text" class="form-control" id="cep" name="cep" value="<?php echo utf8_decode("$cep ");?>"required/>
                                             </div>
                                         </div>
 										<div class="row">
@@ -402,7 +402,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Rua</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="endereco" name="endereco" value="<?php echo "$endereco";?>"required/>
+       							<input type="text" class="form-control" id="endereco" name="endereco" value="<?php echo utf8_decode("$endereco");?>"required/>
                                             </div>
                                         </div>
 										<div class="row">
@@ -410,7 +410,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Bairro</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="bairro" name="bairro" value="<?php echo "$bairro";?>"required/>
+       							<input type="text" class="form-control" id="bairro" name="bairro" value="<?php echo utf8_decode("$bairro");?>"required/>
                                             </div>
                                         </div>
 										<div class="row">
@@ -418,7 +418,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Estado</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="estado" name="estado" value="<?php echo "$estado";?>"required/>
+       							<input type="text" class="form-control" id="estado" name="estado" value="<?php echo utf8_decode("$estado");?>"required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -426,19 +426,19 @@ while($lc = @mysqli_fetch_array($slq) ){
                                                 <label>Cidade</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="cidade"name="cidade" value="<?php echo "$cidade";?>"required/>
+                                <input type="text" class="form-control" id="cidade"name="cidade" value="<?php echo utf8_decode("$cidade");?>"required/>
                                             </div>
                                         </div>
-                                       										
+
 										<div class="row">
                                             <div class="col-md-6">
                                                 <label>Número</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="numero" name="numero" value="<?php echo "$numero";?>"required/>
+       							<input type="text" class="form-control" id="numero" name="numero" value="<?php echo utf8_decode("$numero");?>"required/>
                                             </div>
                                         </div>
-										
+
 										 <div class="row">
                                             <div class="col-md-12">
                                                 <label>Sua biografia</label><br/>
@@ -450,19 +450,19 @@ while($lc = @mysqli_fetch_array($slq) ){
 					<input type="hidden" name ="env" value="altera">
                         </div>
                     </div>
-					
+
                 </div>
-				
-            </form>  
+
+            </form>
 
 
 <?php
 if(isset($_POST['env']) && $_POST['env'] == "altera"){
-	
+
 	if($_POST['usuario'] && $_POST['empresa'] && $_POST['email'] && $_POST['cnpj'] && $_POST['razao'] && $_POST['cep'] && $_POST['cidade'] && $_POST['estado'] && $_POST['bairro'] && $_POST['endereco'] && $_POST['numero'] && $_POST['biografia'] && $_POST['senha']){
 
-	
-	
+
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
 	$razao =utf8_encode($_SESSION['razao']) ;
@@ -478,8 +478,8 @@ if(isset($_POST['env']) && $_POST['env'] == "altera"){
 	$senha = utf8_encode($_SESSION['Senha']);
 	$nme = utf8_encode($_SESSION['NmEmpresa']);
 
-	
-	
+
+
 	$usuarios =	$_POST['usuario'];
 	$empresas =	$_POST['empresa'];
 	$cnpjs =	$_POST['cnpj'];
@@ -492,14 +492,14 @@ if(isset($_POST['env']) && $_POST['env'] == "altera"){
 	$enderecos =	$_POST['endereco'];
 	$numeros =	$_POST['numero'];
 	$biografias = $_POST['biografia'];
-	$senhas = $_POST['senha']; 
-	
+	$senhas = $_POST['senha'];
+
 	$_SESSION['NmEmpresa'] = $empresas;
 	$_SESSION['NmUsuario'] = $usuarios;
 	$_SESSION['Email'] =	$emails;
 	$_SESSION['Senha'] = $senhas;
 	$_SESSION['cnpj'] = $cnpjs;
-	$_SESSION['razao'] = $razaos; 
+	$_SESSION['razao'] = $razaos;
 	$_SESSION['cep'] = $ceps;
 	$_SESSION['cidade'] = $cidades;
 	$_SESSION['estado'] = $estados;
@@ -507,7 +507,7 @@ if(isset($_POST['env']) && $_POST['env'] == "altera"){
 	$_SESSION['endereco'] = $enderecos;
 	$_SESSION['numero'] = $numeros;
 	$_SESSION['biografia'] = $biografias;
-	
+
 	$empresass =utf8_encode($_SESSION['NmEmpresa']);
 	$usuarioss=utf8_encode($_SESSION['NmUsuario']);
 	$emailss=utf8_encode($_SESSION['Email']);
@@ -517,26 +517,26 @@ if(isset($_POST['env']) && $_POST['env'] == "altera"){
 	$cepss=utf8_encode($_SESSION['cep']);
 	$cidadess=utf8_encode($_SESSION['cidade']);
 	$estadoss=utf8_encode($_SESSION['estado']);
-	$bairross=	utf8_encode($_SESSION['bairro']); 
+	$bairross=	utf8_encode($_SESSION['bairro']);
 	$enderecoss=utf8_encode($_SESSION['endereco']);
 	$numeross=utf8_encode($_SESSION['numero']);
 	$biografiass=utf8_encode($_SESSION['biografia']);
-	
-	$query = mysqli_query($conn,"UPDATE TbEmpresas SET NmUsuario = '$usuarioss' ,NmEmpresa =  '$empresass', CNPJ = '$cnpjss', Email = '$emailss' , CEP = '$cepss',Endereco= '$enderecoss' , biografia = '$biografiass', Cidade = '$cidadess' , Estado = '$estadoss' , Bairro = '$bairross', Numero = '$numeross' , Razao = '$razaoss', Senha = '$senhass' where IdEmpresa = '$idempresa'")or die(mysqli_error()); 
-	
+
+	$query = mysqli_query($conn,"UPDATE TbEmpresas SET NmUsuario = '$usuarioss' ,NmEmpresa =  '$empresass', CNPJ = '$cnpjss', Email = '$emailss' , CEP = '$cepss',Endereco= '$enderecoss' , biografia = '$biografiass', Cidade = '$cidadess' , Estado = '$estadoss' , Bairro = '$bairross', Numero = '$numeross' , Razao = '$razaoss', Senha = '$senhass' where IdEmpresa = '$idempresa'")or die(mysqli_error());
+
 	echo"dados alterados";
-	
+
 	}
 	else{
 		echo"Prrecha todos os campos";
-		
+
 	}
-	
+
 }
 else{
-	
+
 }
-?>		
+?>
         </div>
                 </div>
             </div>

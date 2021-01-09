@@ -1,6 +1,6 @@
-<?php
+<?php/*
 session_start();
-include_once("../assets/lib/dbconnect.php"); 
+include_once("../assets/lib/dbconnect.php");
 
 $email = $_SESSION['Email'];
 $senha = $_SESSION['Senha'];
@@ -75,29 +75,29 @@ while($lc = @mysql_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = $lc['NmCandidato'];
 	$nmempresa= $lc['NmEmpresa'];
-	
+
 	$sqlil = mysql_query("select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$fkid'");
 	$echo = mysql_num_rows($sqlil);
-	
+
 	if($echo>=1){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 	<form method="Post">
 	<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 	<input type="submit" name="a" value="iniciar contato"/>
 	<input type="hidden" name="env2" value="clicou"/>
-	
+
 	</form>
 	<?php
 	echo"<br>$idsoli $nmempresa $nmcandidato <br>";
-	
+
 	}
 }
-	
+
 
 
 ?>
@@ -114,16 +114,16 @@ $iddocan = $_POST["pegar"];
 
 
 if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
-	
+
 	$sqlil = mysql_query("select * from TbContatos where fk_IdCandidato = '$iddocan' and fk_IdEmpresa='$fkid'");
 	$echo = mysql_num_rows($sqlil);
-	
+
 	if($echo>=1){
-		
+
 	}
 	else{
 	if(mysql_query("insert into TbContatos(fk_IdEmpresa,fk_IdCandidato) values('$fkid','$iddocan')")){
-		
+
 		header('Location: chatEmpresa.php');
 	}
 	else{
@@ -132,22 +132,18 @@ if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
 	}
 }
 else{
-	
+
 }
 
 ?>
 <?php
 if(isset($_POST['env']) && $_POST['env'] == "pesquisar"){
-	
+
 	$_SESSION['pesquisa'] = $_POST['pesquisa'];
 	header('Location: perfilDeCandidato.php');
 }
 else{
 
 }
-
+*/
 ?>
-
-
-
-

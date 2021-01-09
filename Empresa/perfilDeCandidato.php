@@ -1,8 +1,8 @@
-<?php 
+<?php
 session_start();
 include_once("../assets/lib/dbconnect.php");
 $_SESSION['Contador'] = 1;
-				
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
 	$razao =utf8_encode($_SESSION['razao']) ;
@@ -39,7 +39,7 @@ $_SESSION['Contador'] = 1;
 	}
 	if(isset($_POST['contato']) && $_POST['contato'] == "contatos"){
 								$id= $_POST['id'];
-								
+
 								if(mysqli_query($conn,"insert into TbContatos (fk_IdEmpresa,fk_IdCandidato)values($idempresa,$id)")){
 									header('Location: chatEmpresa.php');
 								}
@@ -48,7 +48,7 @@ $_SESSION['Contador'] = 1;
 								}
 							}
 							else{
-								
+
 							}
 
 ?>
@@ -95,7 +95,7 @@ $_SESSION['Contador'] = 1;
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$nme";?>
+                        <span class="user-name"><?php echo utf8_decode("$nme");?>
                         </span>
                         <span class="user-role">Empresa</span>
                     </div>
@@ -105,16 +105,16 @@ $_SESSION['Contador'] = 1;
                 <div>
                     <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
@@ -124,9 +124,9 @@ $_SESSION['Contador'] = 1;
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -151,7 +151,7 @@ $_SESSION['Contador'] = 1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -187,7 +187,7 @@ on a.IdCandidato = c.fk_IdCandidato
 inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
-						echo"$lins";
+						echo utf8_decode("$lins");
 						?>
 						</span>
                     </a>
@@ -218,16 +218,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -237,10 +237,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo"<br>$nmcandidato Solicitou um contato$echo!<br>";
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+
 
 
 ?>
@@ -249,18 +249,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -271,14 +271,14 @@ $iddocan = $_POST["pegar"];
 
 
 if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
-	
-	
-	
+
+
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$iddocan' and fk_IdEmpresa='$fkid'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>=1){
-		
+
 	}
 	else{
 	if(mysqli_query($conn,"insert into TbContatos(fk_IdEmpresa,fk_IdCandidato) values('$fkid','$iddocan')")){
@@ -287,27 +287,25 @@ if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
 			echo"<script>
 		alert('$iddocan  $fkid');
 		</script>";
-			
+
 	}
 	else{
-		echo"<script>
-		alert('aaaaa');
-		</script>";
+
 	}
 	}
 }
 else{
-	
+
 }
 
 ?>
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -337,17 +335,17 @@ else{
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="../assets/images/<?php echo"$img2"?>" alt=""/>
+                            <img src="../assets/images/fotos/<?php echo utf8_decode("$img2")?>" alt=""/>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-									
-                                      <?php echo"$NmCs"?>
+
+                                      <?php echo utf8_decode("$NmCs")?>
                                     </h5>
                                     <h6>
-                                      <?php echo"$profissaos"?>
+                                      <?php echo utf8_decode("$profissaos")?>
                                     </h6>
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -364,7 +362,7 @@ else{
 					<?php
 					$sqly =mysqli_query($conn,"Select * from TbContatos where fk_IdEmpresa=$idempresa and fk_IdCandidato=$idcand2");
 					$sqly2 = mysqli_num_rows($sqly);
-					
+
 					if($sqly2 >= 1){
 						echo"<h6>Você já tem um contato com esse candidato</h6>";
 					}
@@ -389,23 +387,23 @@ else{
                             <?php
 							$if = "select a.NmCandidato,
 							b.Competencia
-							
+
 							from TbCandidatos a
 							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
 							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcand2;";
-							
+
 							$if2 = mysqli_query($conn, $if);
-							
+
 							while($ifrow = mysqli_fetch_array($if2)){
 							$comp = utf8_encode($ifrow['Competencia']);
-                            echo"$comp<br/>";
+                            echo utf8_decode("$comp<br/>");
 							}
 							?>
-							
-						
+
+
                         </div>
                     </div>
                     <div class="col-md-8">
@@ -416,7 +414,7 @@ else{
                                                 <label>Nome</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$NmCs"?></p>
+                                                <p><?php echo utf8_decode("$NmCs")?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -424,7 +422,7 @@ else{
                                                 <label>E-mail</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$emails"?></p>
+                                                <p><?php echo utf8_decode("$emails")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -432,7 +430,7 @@ else{
                                                 <label>Nascimento</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$nascimentos"?></p>
+                                                <p><?php echo utf8_decode("$nascimentos")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -440,7 +438,7 @@ else{
                                                 <label>Rua</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$ruas"?></p>
+                                                <p><?php echo utf8_decode("$ruas")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -448,7 +446,7 @@ else{
                                                 <label>Bairro</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$bairros"?></p>
+                                                <p><?php echo utf8_decode("$bairros")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -456,7 +454,7 @@ else{
                                                 <label>Estado</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$estados"?></p>
+                                                <p><?php echo utf8_decode("$estados")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -464,7 +462,7 @@ else{
                                                 <label>Cidade</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$cidades"?></p>
+                                                <p><?php echo utf8_decode("$cidades")?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -472,7 +470,7 @@ else{
                                                 <label>CEP</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$ceps"?></p>
+                                                <p><?php echo utf8_decode("$ceps")?></p>
                                             </div>
                                         </div>
                             </div>
@@ -482,7 +480,7 @@ else{
                                                 <label>Experiência Profissional?</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$xps"; ?></p>
+                                                <p><?php echo utf8_decode("$xps"); ?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -490,7 +488,7 @@ else{
                                                 <label>Idiomas</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$ingless"; ?></p>
+                                                <p><?php echo utf8_decode("$ingless"); ?></p>
                                             </div>
                                         </div>
 										<div class="row">
@@ -498,22 +496,22 @@ else{
                                                 <label>Escolaridade</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$formacaos"; ?></p>
+                                                <p><?php echo utf8_decode("$formacaos"); ?></p>
                                             </div>
                                         </div>
-                                        
+
 										<br>
 										 <div class="row">
                                             <div class="col-md-12">
                                                 <label>Sua Biografia</label><br/>
-                                                <p><?php echo"$bios"; ?></p>
+                                                <p><?php echo utf8_decode("$bios"); ?></p>
                                             </div>
                                         </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>
         </div>
                 </div>
             </div>

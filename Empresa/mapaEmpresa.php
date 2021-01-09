@@ -1,9 +1,9 @@
-<?php 
+<?php
 session_start();
-include_once("../assets/lib/dbconnect.php"); 
+include_once("../assets/lib/dbconnect.php");
 
 $_SESSION['Contador'] = 1;
-				
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
 	$razao =utf8_encode($_SESSION['razao']) ;
@@ -24,9 +24,9 @@ $_SESSION['Contador'] = 1;
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <?php
-						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
+					$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
 							$img = utf8_encode($assoc['foto']);
 						}
@@ -34,9 +34,9 @@ $_SESSION['Contador'] = 1;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
-    <title>NeoService</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
+    <title>NeoService - Início</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
@@ -44,11 +44,29 @@ $_SESSION['Contador'] = 1;
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/css/custom-themes.css">
-	<link rel="stylesheet" href="../assets/css/styleCandidato.css">
+    <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png" />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+	<link rel="stylesheet" type="text/css" href="../assets/css/styleMapa.css">
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
+	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.css' type='text/css' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+	<style>
+    .mapboxgl-popup {
+        max-width: 400px;
+        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    }
+</style>
 </head>
 
 <body>
-    <div class="page-wrapper chiller-theme sidebar-bg bg1 toggled">
+    <main class="page-content">
+        <div class="container-fluid">
+            <div id='map'></div>
+        </div>
+    </main>
+     <div class="page-wrapper chiller-theme sidebar-bg bg1 toggled">
         <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
             <i class="fas fa-bars"></i>
         </a>
@@ -65,7 +83,7 @@ $_SESSION['Contador'] = 1;
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$nme";?>
+                        <span class="user-name"><?php echo utf8_decode("$nme");?>
                         </span>
                         <span class="user-role">Empresa</span>
                     </div>
@@ -75,28 +93,28 @@ $_SESSION['Contador'] = 1;
                 <div>
                     <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
 							while($row = mysqli_fetch_array($sqli)){
 							$competencia = utf8_encode($row['competencia']);
-							echo"<option value='$competencia'></option>";
+							echo utf8_decode("<option value='$competencia'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -121,7 +139,7 @@ $_SESSION['Contador'] = 1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -157,7 +175,7 @@ on a.IdCandidato = c.fk_IdCandidato
 inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
-						echo"$lins";
+						echo utf8_decode("$lins");
 						?>
 						</span>
                     </a>
@@ -188,16 +206,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -207,10 +225,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo"<br>$nmcandidato Solicitou um contato$echo!<br>";
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+
 
 
 ?>
@@ -219,18 +237,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -238,11 +256,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -273,7 +291,7 @@ while($lc = @mysqli_fetch_array($slq) ){
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
     <script src="../assets/js/custom.js"></script>
     <script src="../assets/js/mapa.js"></script>
-    
+
 </body>
 
 </html>

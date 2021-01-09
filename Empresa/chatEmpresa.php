@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once("../assets/lib/dbconnect.php"); 
+
+include_once("../assets/lib/dbconnect.php");
 error_reporting(0);
 ini_set(“display_errors”, 0 );
 
@@ -9,13 +10,13 @@ $id = $_SESSION['IdEmpresa'];
 
 
  if($_SESSION['Contador'] == 2){
-	
+
 	header('Location: chatEmpresa.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
-$idempresa=  utf8_encode($_SESSION['IdEmpresa']);
+$idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 
 
 ?>
@@ -35,7 +36,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 <?php
 						$imagem = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $idempresa");
 						while($assoc = mysqli_fetch_assoc($imagem)){
-							$img = utf8_encode($assoc['foto']);
+							$img = utf8_decode($assoc['foto']);
 						}
 						?>
 <head>
@@ -46,9 +47,9 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <style class="cp-pen-styles">body {
   display: flex;
-  
-  
-  
+
+
+
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
 
@@ -719,7 +720,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 	border: none;
 	color: #ffffff;
 
-	
+
 
 }
 
@@ -793,29 +794,31 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 				b.NmCandidato,
 				c.IdContato,
 				b.foto
-		
+
 
 				from TbEmpresas a
 				inner join TbContatos c
 				on a.IdEmpresa = c.fk_IdEmpresa
 				inner join TbCandidatos b
 				on b.IdCandidato = c.fk_IdCandidato where a.IdEmpresa = $id;");
-		
-		
-		
+
+
+
 				$conta = mysqli_num_rows($seleciona);
-				
+
 				if($conta <=0){
 					echo"Nenhuma conversa encontrada!";
 				}
 				else{
 					while($row = mysqli_fetch_array($seleciona)){
-					$nome = utf8_encode($row['NmCandidato']);
+
+
+					$nome = utf8_decode($row['NmCandidato']);
 					$idc = $row['IdCandidato'];
 					$idcont = $row['IdContato'];
-					$img2 = utf8_encode($row['foto']);
-					
-					
+					$img2 = utf8_decode($row['foto']);
+
+
 				?>
 				<form method="post" action="chatEmpresa.php" >
 				<?php
@@ -824,33 +827,33 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 				}
 				else{
 				?><li class="contact">
-				<?php 
+				<?php
 				}
 				?>
 					<div class="wrap">
 						<span class="contact-status away"></span>
 						<img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img2"?>" alt="User picture">
-						<?php 
+						<?php
 						echo"<input type='hidden' name='idcan' value='$idc'/> <input type='hidden' name='idcont' value='$idcont'/>";
-					
+
 						?>
-						
+
 						<div class="meta">
 							<p class="name"><?php echo"<input type='hidden' name='clicarcontato' value='clicou'><input type='hidden' name='nomecan' value='$nome'/>$nome";  ?></p>
 							<p class="preview"><?php
-							
+
 							$ultimo = mysqli_query($conn,"select max(IdMensagem) from TbMensagens where fk_IdContato = $idcont;");
 							while($rowss = mysqli_fetch_array($ultimo)){
-					
-							$mensagemultimo = utf8_encode($rowss['max(IdMensagem)']);
-					
+
+							$mensagemultimo = utf8_decode($rowss['max(IdMensagem)']);
+
 							$ultimo = mysqli_query($conn,"select * from TbMensagens where IdMensagem = $mensagemultimo");
 							while($rowsss = mysqli_fetch_array($ultimo)){
-					
-							$mensagemultima = utf8_encode($rowsss['Mensagem']);
-							$falando = utf8_encode($rowsss['fk_IdCandidato']);
-							
-							
+
+							$mensagemultima = utf8_decode($rowsss['Mensagem']);
+							$falando = utf8_decode($rowsss['fk_IdCandidato']);
+
+
 							if($falando<=0){
 							echo"Você: $mensagemultima ";
 							}
@@ -858,44 +861,45 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 								echo"$nome: $mensagemultima";
 							}
 							}
-					
+
 							}
-							
+
 							?><?php echo"<input type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
 						</div>
 					</div>
 				</li>
 				</form>
 				<?php
-				}}
+				}
+				}
 				?>
-				<?php 
+				<?php
 				if(isset($_POST['clicarcontato']) && $_POST['clicarcontato'] == "clicou"){
 				$_SESSION['idcan'] = $_POST['idcan'];
-				
-				$_SESSION['nomecan'] = utf8_encode($_POST['nomecan']);
+
+				$_SESSION['nomecan'] = utf8_decode($_POST['nomecan']);
 				$_SESSION['idcontato'] = $_POST['idcont'];
-				
-				
-				
-				
+
+
+
+
 				}
 				else{
-					
+
 				}
 				$i = $_SESSION['idcan'];
 				$sqli = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $i");
 				while($ja = mysqli_fetch_assoc($sqli)){
-				$imgs = utf8_encode($ja['foto']);
+				$imgs = utf8_decode($ja['foto']);
 				}
 				 $_SESSION['foto'] = $imgs;
-				 
+
 				 $img3 = $_SESSION['foto'];
-				
+
 				?>
-			
-				
-				
+
+
+
 			</ul>
 		</div>
 		<div id="bottom-bar">
@@ -904,7 +908,7 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 		</div>
 	</div>
 
-	
+
 	<form method="post" enctype="multipart/form-data">
 	<div class="content">
 		<div class="contact-profile">
@@ -918,18 +922,18 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 		</div>
 		<?php
 	if(isset($_POST['env']) && $_POST['env'] == "envMsg"){
-		$mensagem = utf8_encode($_POST['mensagens']);
+		$mensagem = utf8_decode($_POST['mensagens']);
 		$idpara = $_SESSION['idcan'];
 		$idde = $id;
 		$fkcontato = $_SESSION['idcontato'];
-		
+
 		if(empty($mensagem)){
 			echo"<code>Não é possível enviar uma mensagem vazia!</code>";
 		}
 		else{
 			if(mysqli_query($conn,"insert into TbMensagens(fk_IdContato,fk_IdEmpresa,fk_IdCandidato,Mensagem)
 			values('$fkcontato',$idde,null,'$mensagem');")){
-			
+
 			}
 			else{
 				echo"<code>Erro ao enviar a mensagem! Escolha uma conversa.</code>";
@@ -937,16 +941,16 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 		}
 	}
 	else{
-		
+
 	}
 ?>
 		<div id="lista" class="messages">
 		<ul>
-		
-		
+
+
 		<?php
 		$contatoconversa = $_SESSION['idcontato'];
-		
+
 		$nc = @mysqli_query($conn,"select a.NmEmpresa,
 		b.NmCandidato,
 		c.fk_IdEmpresa,
@@ -957,52 +961,52 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 		from TbEmpresas a inner join
 		TbContatos d
 		on a.IdEmpresa = d.fk_IdEmpresa
-		inner join TbCandidatos b 
+		inner join TbCandidatos b
 		on b.IdCandidato = d.fk_IdCandidato
 		inner join TbMensagens c
 		on c.fk_IdContato = d.IdContato
 		where d.IdContato = $contatoconversa;");
-		
-		
-		
+
+
+
 		while($lc = @mysqli_fetch_array($nc) ){
 			$ide = $lc['fk_IdEmpresa'];
 			$idc = $lc['fk_IdCandidato'];
-			$a = utf8_encode($lc['NmEmpresa']);
-			$b = utf8_encode($lc['NmCandidato']);
-			$mensagens = utf8_encode($lc ['Mensagem']);
-			
-			
-			
+			$a = utf8_decode($lc['NmEmpresa']);
+			$b = utf8_decode($lc['NmCandidato']);
+			$mensagens = utf8_decode($lc ['Mensagem']);
+
+
+
 			 if($ide == null ){
 				echo "
 					<li class='sent'>
 					<img class='img-responsive img-rounded' src='../assets/images/fotos/$img3' alt='User picture'>
 					<p>$mensagens</p>
-					
+
 				</li>
 				";
-				
+
 			 }
-			
+
 			if($ide !=0 ){
 				echo "
-				
+
 				<li class='replies'>
 					<img class='img-responsive img-rounded' src='../assets/images/fotos/$img' alt='User picture'>
 					<p>$mensagens</p>
 				</li>
 				";
-				
+
 			}
-			
-					
+
+
 		}
 		?>
-			
-				
-				
-				
+
+
+
+
 			</ul>
 		</div>
 		<div class="message-input">
@@ -1018,6 +1022,5 @@ $idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 	</form>
 </div>
 
- 
-</body></html>
 
+</body></html>

@@ -1,14 +1,14 @@
-<?php 
+<?php
 session_start();
 include_once("../assets/lib/dbconnect.php");
 if($_SESSION['Contador'] == 2){
 	header('Location: VagasCadastrar.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 
-				
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$cnpj = utf8_encode($_SESSION['cnpj']) ;
 	$razao =utf8_encode($_SESSION['razao']) ;
@@ -70,7 +70,7 @@ $_SESSION['Contador'] +=1;
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$nme";?>
+                        <span class="user-name"><?php echo utf8_decode("$nme");?>
                         </span>
                         <span class="user-role">Empresa</span>
                     </div>
@@ -78,31 +78,31 @@ $_SESSION['Contador'] +=1;
                 <!-- sidebar-header  -->
 				<div class="sidebar-search">
                 <div>
-				
+
                    <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
 							while($row = mysqli_fetch_array($sqli)){
 							$competencia = utf8_encode($row['competencia']);
-							echo"<option value='$competencia'></option>";
+							echo utf8_decode("<option value='$competencia'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -127,7 +127,7 @@ $_SESSION['Contador'] +=1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -163,7 +163,7 @@ on a.IdCandidato = c.fk_IdCandidato
 inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
-						echo"$lins";
+						echo utf8_decode("$lins");
 						?>
 						</span>
                     </a>
@@ -194,16 +194,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -213,10 +213,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo"<br>$nmcandidato Solicitou um contato$echo!<br>";
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+
 
 
 ?>
@@ -225,18 +225,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -244,11 +244,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -279,18 +279,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                     <div class="col-md-4">
                         <div class="profile-img">
                             <img src="../assets/images/fotos/<?php echo"$img"?>" alt=""/>
-							
-							
+
+
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                         <?php echo"$nme";?>
+                                         <?php echo utf8_decode("$nme");?>
                                     </h5>
-                              
 
-                                    
+
+
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -299,7 +299,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                             </ul>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -308,18 +308,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                              <div class="col-md-6">
 								<?php
 							$if = mysqli_query($conn,"select * from TbVagas where fk_IdEmpresa = '$idempresa';")or die (mysqli_error());
-							
+
 							while($ifrow = mysqli_fetch_array($if)){
 							$vag = utf8_encode($ifrow['vaga']);
 							$sal = utf8_encode($ifrow['salario']);
-                          echo"$vag,<br/>R$ $sal<br/><br/>";
+                          echo utf8_decode("$vag,<br/>R$ $sal<br/><br/>");
 							}
 							?>
                             </div>
                         </div>
                     </div>
 
-                    
+
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -334,7 +334,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                         <input type="text" class="form-control"  name="nome" placeholder="Digite a Vaga"required/><br/>
                                             </div>
                                         </div>
-                                        
+
                                          <div class="row">
                                             <div class="col-md-4">
                                                 <label>Sálario</label>
@@ -361,8 +361,8 @@ while($lc = @mysqli_fetch_array($slq) ){
                                         <input type="text" class="form-control"  name="descricao" placeholder="Digite a Descrição"required/><br/>
                                             </div>
                                         </div>
-                                
-                   		
+
+
                                          <div class="row">
                                             <div class="col-md-12">
                                 <input type="submit" class="btn btn-primary" value="Cadastrar"/>
@@ -376,26 +376,26 @@ while($lc = @mysqli_fetch_array($slq) ){
 									$salario = $_POST['salario'];
 									$horario = $_POST['horario'];
 									$descricao = $_POST['descricao'];
-									
-									echo"<center><div class='alert alert-success'>Vaga cadastrada!</div></center>";
-									
+
+									echo utf8_decode("<center><div class='alert alert-success'>Vaga cadastrada!</div></center>");
+
 									if(mysqli_query($conn,"insert into TbVagas(fk_IdEmpresa,vaga,salario,horario,descricao)
 									values('$idempresa','$nome','$salario','$horario','$descricao');")){
-											
+
 										}
 										else{
 										echo"erro ao cadastrar informações inválidas";
 										}
 								}
 								else{
-									
+
 								}
 								?>
-                            
+
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>
         </div>
                 </div>
             </div>

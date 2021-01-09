@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("../assets/lib/dbconnect.php"); 
+include_once("../assets/lib/dbconnect.php");
 ini_set('display_errors', 0 );
 error_reporting(0);
 
@@ -29,10 +29,10 @@ $_SESSION['Contador'] = 1;
 						$idemp = $_POST['idd'];
 						$_SESSION['idbusca'] = $idemp;
 						header('Location: perfilDeCandidato.php');
-					
+
 						}
 						else{
-							
+
 						}
 
 ?>
@@ -80,7 +80,7 @@ $_SESSION['Contador'] = 1;
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$nme";?>
+                        <span class="user-name"><?php echo utf8_decode("$nme");?>
                         </span>
                         <span class="user-role">Empresa</span>
                     </div>
@@ -90,28 +90,28 @@ $_SESSION['Contador'] = 1;
                 <div>
                    <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
 							while($row = mysqli_fetch_array($sqli)){
 							$competencia = utf8_encode($row['competencia']);
-							echo"<option value='$competencia'></option>";
+							echo utf8_decode("<option value='$competencia'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -136,7 +136,7 @@ $_SESSION['Contador'] = 1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -172,7 +172,7 @@ on a.IdCandidato = c.fk_IdCandidato
 inner join TbEmpresas b
 on b.IdEmpresa = c.fk_IdEmpresa where fk_IdEmpresa=$idempresa") or die (mysqli_error());
 						$lins = mysqli_num_rows($slqs);
-						echo"$lins";
+						echo utf8_decode("$lins");
 						?>
 						</span>
                     </a>
@@ -203,16 +203,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -222,10 +222,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo"<br>$nmcandidato Solicitou um contato$echo!<br>";
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+
 
 
 ?>
@@ -234,18 +234,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -253,11 +253,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -284,25 +284,25 @@ while($lc = @mysqli_fetch_array($slq) ){
 					<div class="container"><br>
 				<div class="jumbotron p-3 text-center">
 				  <h1 class="display-4">Busca de Candidatos</h1><hr>
-				  <p class="lead">Resultados pela busca: "<?php echo"$pesquisa";?>"</p>
+				  <p class="lead">Resultados pela busca: "<?php echo utf8_decode("$pesquisa");?>"</p>
 				  <p class="lead">
 				  </p>
 				</div>
 
-				
-				
-				
-				
-				
-			
-				
-				<div class="row">	
+
+
+
+
+
+
+
+				<div class="row">
 <?php
 $sqlpesquisa = mysqli_query($conn,"select * from TbCompetencias where competencia = '$pesquisa'");
 		while($ld = @mysqli_fetch_array($sqlpesquisa) ){
 		$IdCompetencia = $ld['IdCompetencia'];
-		
-		
+
+
 		$sqlpesquisa2 =  mysqli_query($conn,"select * from TbCandidatos as a inner join TbCompetenciaRelacao as b
 		on a.IdCandidato = b.fk_IdCandidato
 		where b.fk_IdCompetencia = '$IdCompetencia'")or die (mysqli_error());
@@ -311,11 +311,11 @@ $sqlpesquisa = mysqli_query($conn,"select * from TbCompetencias where competenci
 		$biografia = utf8_encode($lc['biografia']);
 		$idca = utf8_encode($lc['IdCandidato']);
 		$img2 = utf8_encode($lc['foto']);
-		
-?>				
+
+?>
 				  <div class="col-sm-6">
 					<div class="card">
-					  <h4 class="card-header text-right bg-dark text-white"><?php echo"$nmcandidato";?>
+					  <h4 class="card-header text-right bg-dark text-white"><?php echo utf8_decode("$nmcandidato");?>
 					  <div class="float-left small">
 					  <form method="post">
 						<input type="submit" class="btn btn-raised btn-danger" title="Ver perfil de Candidato" value="Perfil"/>
@@ -329,7 +329,7 @@ $sqlpesquisa = mysqli_query($conn,"select * from TbCompetencias where competenci
 							 <img src="../assets/images/fotos/<?php echo"$img2"?>" alt=""/>
 						  </div>
 						<h4 class="card-title">Informações</h4>
-						  <p class="card-text"><?php echo"$biografia";?></p>
+						  <p class="card-text"><?php echo utf8_decode("$biografia");?></p>
 					  </div>
 					</div>
 				  </div>
@@ -339,23 +339,23 @@ $sqlpesquisa = mysqli_query($conn,"select * from TbCompetencias where competenci
 				?>
 				</div>
 
-				
-				
-				
-				
+
+
+
+
 				
 
 				</div>
 
 				  <hr>
-					
+
 					</div>
 
 					<!-- jQuery first, then Bootstrap JS. -->
             </div>
         </main>
         <!-- page-content" -->
-    
+
     <!-- page-wrapper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
