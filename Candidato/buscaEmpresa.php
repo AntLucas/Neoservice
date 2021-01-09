@@ -1,15 +1,23 @@
-<?php 
-session_start();    
+<?php
+session_start();
 include_once("../assets/lib/dbconnect.php");
+//if(isset($_POST['perfil']) && $_POST['perfil']=="perfils"){
+//$idemp = $_POST['idd'];
+//$_SESSION['idbusca'] = $idemp;
+//echo"".$_SESSION['idbusca'];
+//header('Location: perfilDeEmpresa.php');
+//}
 
-	if(isset($_POST['perfil']) && $_POST['perfil']=="perfils")
-	{
-		$idemp = $_POST['idd'];
-		$_SESSION['idbusca'] = $idemp;
-		header('Location: perfilDeEmpresa.php');
-	}
-	else{
-		}
+	if(isset($_POST['perfil']) && $_POST['perfil']=="perfils"){
+						$idemp = $_POST['idd'];
+						$_SESSION['idbusca'] = $idemp;
+						header('Location: perfilDeEmpresa.php');
+
+						}
+						else{
+
+						}
+
 
 $pesquisa = $_SESSION['pesquisa'];
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
@@ -19,33 +27,33 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 
 $sql = "select * from TbCandidatos  where Email = '$email' and Senha = '$senha';";
 $sql2 = mysqli_query($conn, $sql);
-while($rowss = mysqli_fetch_array($sql2))
-{
+while($rowss = mysqli_fetch_array($sql2)){
+
 	$bday = utf8_encode($rowss['bdat']);
 	$nascimento = implode("/", array_reverse(explode("-", $bday)));
+
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
-	$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
-	while($assoc = mysqli_fetch_assoc($imagem))
-	{
-	$img = utf8_encode($assoc['foto']);
-	}
-?>
+						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
+						while($assoc = mysqli_fetch_assoc($imagem)){
+							$img = utf8_encode($assoc['foto']);
+						}
+						?>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -80,7 +88,7 @@ while($rowss = mysqli_fetch_array($sql2))
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -90,28 +98,30 @@ while($rowss = mysqli_fetch_array($sql2))
                     <div>
                     <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
-							while($row = mysqli_fetch_array($sqli2))
-							{
-								$Usuario = $row['NmUsuario'];
-								echo"<option value='$Usuario'></option>";
+							while($row = mysqli_fetch_array($sqli2)){
+							$Usuario = $row['NmUsuario'];
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
+
 							</form>
+
+
                         </div>
                     </div>
                 </div>
@@ -138,11 +148,10 @@ while($rowss = mysqli_fetch_array($sql2))
 
                                         </a>
                                     </li>
-									
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -228,8 +237,8 @@ while($rowss = mysqli_fetch_array($sql2))
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -237,30 +246,39 @@ while($rowss = mysqli_fetch_array($sql2))
 					<div class="container"><br>
 				<div class="jumbotron p-3 text-center">
 				  <h1 class="display-4">Busca de Empresas</h1><hr>
-				  <p class="lead">Resultados pela busca: "<?php echo"$pesquisa";?>"</p>
+				  <p class="lead">Resultados pela busca: "<?php echo utf8_decode("$pesquisa");?>"</p>
 				  <p class="lead">
 				  </p>
 				</div>
-				<div class="row">	
-		<?php 
+
+
+
+
+
+				<div class="row">
+			<?php
 		$sqlpesquisa = "select * from TbEmpresas where NmEmpresa = '$pesquisa'";
 		$sqlpesquisa2 = mysqli_query($conn,$sqlpesquisa);
-		
-		while($lc = @mysqli_fetch_array($sqlpesquisa2) )
-		{
-			$nmempresa = $lc['NmEmpresa'];
-			$idempresa = $lc['IdEmpresa'];
-			$img2 = utf8_encode($lc['foto']);
-		?>				
+
+		while($lc = @mysqli_fetch_array($sqlpesquisa2) ){
+		$nmempresa = $lc['NmEmpresa'];
+		$idempresa = $lc['IdEmpresa'];
+		$img2 = utf8_encode($lc['foto']);
+		?>
+
 				  <div class="col-sm-6">
 					<div class="card">
-					  <h4 class="card-header text-right bg-dark text-white"><?php echo"$nmempresa";?>
+					  <h4 class="card-header text-right bg-dark text-white"><?php echo utf8_decode("$nmempresa");?>
 					  <div class="float-left small">
 					  <form method="post" >
 						<input type="submit" class="btn btn-raised btn-danger" title="Ver perfil de EMPRESA" value="Perfil"/>
 						<input type="hidden" name="perfil" value="perfils"/>
-						<input type="hidden" name="idd" value="<?php echo"$idempresa"?>">
-						</form>  
+						<input type="hidden" name="idd" value="<?php echo "$idempresa"?>">
+						</form>
+
+
+
+
 					  </div>
 					  </h4>
 					  <div class="card-body">
@@ -269,8 +287,11 @@ while($rowss = mysqli_fetch_array($sql2))
 						  </div>
 						  <br>
 						<h4 class="card-title">Vagas</h4>
+
+
+
                              <div class="col-md-6">
-		<?php
+								<?php
 							$if = "select * from TbVagas where fk_IdEmpresa = '$idempresa';";
 							$if2 = mysqli_query($conn,$if);
 							while($ifrow = mysqli_fetch_array($if2)){
@@ -278,33 +299,42 @@ while($rowss = mysqli_fetch_array($sql2))
 							$sal = utf8_encode($ifrow['salario']);
 							$desc = utf8_encode($ifrow['descricao']);
 							$horario = utf8_encode($ifrow['horario']);
-                           
-							
-                            
-        ?>
-						  <p class="card-text"><center><strong><?php echo"$vag";?></strong></center></p>
-						  <p><strong>Remuneração: </strong><?php echo"R$ $sal"?></p>
-						  <p><strong>Horário: </strong><?php echo"$horario"?> </p>
-						 <p><strong>Descrição: </strong><?php echo"$desc";?></p><?php
+
+
+
+                    ?>
+						  <p class="card-text"><center><strong><?php echo utf8_decode("$vag");?></strong></center></p>
+						  <p><strong>Remuneração: </strong><?php echo utf8_decode("R$ $sal")?></p>
+						  <p><strong>Horário: </strong><?php echo utf8_decode("$horario")?> </p>
+						 <p><strong>Descrição: </strong><?php echo utf8_decode("$desc");?></p><?php
 						  echo"</br></br></br>";
-						 
+
 					  }
-		?>
-						
+							?>
+
 					</div>
 				  </div>
 
 				</div>
+
+
+
+
 				<br>
+
 				</div>
-		<?php
-				  
-		}
-		?>
-				  </hr>	
+
+
+
+				  <?php
+
+					  }
+							?>
+				  </hr>
+
 					</div>
-	
-				
+
+
 					<!-- jQuery first, then Bootstrap JS. -->
             </div>
         </main>

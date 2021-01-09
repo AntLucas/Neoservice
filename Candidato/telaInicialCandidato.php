@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 
@@ -13,15 +13,15 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
     <link rel="stylesheet" href="../assets/css/custom-themes.css">
     <link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png" />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />  
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
 	<link rel="stylesheet" type="text/css" href="../assets/css/styleMapa.css">
 	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.js'></script>
 	<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v3.1.3/mapbox-gl-directions.css' type='text/css' />
@@ -84,7 +84,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
                        <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -94,29 +94,29 @@ $profissao	= utf8_encode($_SESSION['profissao']);
                     <div>
                     <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
 							while($row = mysqli_fetch_array($sqli2)){
 							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -233,8 +233,8 @@ $profissao	= utf8_encode($_SESSION['profissao']);
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
     </div>
     <!-- page-wrapper -->
@@ -246,7 +246,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
     <script src="../assets/js/custom.js"></script>
     <script src="../assets/js/mapa.js"></script>
-    
+
 </body>
 
 </html>

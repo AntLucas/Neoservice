@@ -1,14 +1,14 @@
-<?php 
+<?php
 session_start();
 
 
  if($_SESSION['Contador'] >= 2){
-	
+
 	header('Location: editarPerfilCandidato.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
-$_SESSION['Contador'] += 1;  
+$_SESSION['Contador'] += 1;
 
 include_once("../assets/lib/dbconnect.php");
 
@@ -20,24 +20,24 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 
 
 $sql = "select * from TbCandidatos  where IdCandidato = '$idcandidato';";
 $sql2 = mysqli_query($conn, $sql);
 while($rowss = mysqli_fetch_array($sql2)){
-	
+
 	$bday = utf8_encode($rowss['bdat']);
 	$nascimento = implode("/", array_reverse(explode("-", $bday)));
-	
+
 }
 ?>
 
@@ -84,7 +84,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                        <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -94,29 +94,29 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div>
                    <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
 							while($row = mysqli_fetch_array($sqli2)){
 							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
                 </div>
@@ -146,7 +146,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -233,8 +233,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -254,24 +254,24 @@ while($rowss = mysqli_fetch_array($sql2)){
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-						
+
                             <img src="../assets/images/fotos/<?php echo"$img"?>" alt=""/>
-                            
-                               
+
+
                         </div>
-						
+
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-                                         <?php echo"$NmC"?>
+                                         <?php echo utf8_decode("$NmC")?>
                                     </h5>
-                               
+
                                         <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser"name="profissao" value="<?php echo"$profissao";?>"required/>                
+                                <input type="text" class="form-control" id="Cuser"name="profissao" value="<?php echo utf8_decode("$profissao");?>"required/>
                                             </div>
 
-                                    
+
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -283,7 +283,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                             </ul>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -298,12 +298,12 @@ while($rowss = mysqli_fetch_array($sql2)){
 							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
-							
+
 							$if2 = mysqli_query($conn, $if);
-							
+
 							while($ifrow = mysqli_fetch_array($if2)){
 							$comp = utf8_encode($ifrow['Competencia']);
-                            echo"$comp<br/>";
+                            echo utf8_decode("$comp<br/>");
 							}
 							?>
                         </div>
@@ -316,7 +316,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Nome de Usuário</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser"name="nomeu" value="<?php echo "$nomeu";?>" required/>
+                                <input type="text" class="form-control" id="Cuser"name="nomeu" value="<?php echo utf8_decode("$nomeu");?>" required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -324,7 +324,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Nome</label>
                                             </div>
                                     <div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser" name="nomec" value="<?php echo "$NmC";?> "required/>
+       							<input type="text" class="form-control" id="Cuser" name="nomec" value="<?php echo utf8_decode("$NmC");?> "required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -332,7 +332,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>E-mail</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="email" class="form-control" id="Cuser" name="email" value="<?php echo "$email";?>"required/>
+       							<input type="email" class="form-control" id="Cuser" name="email" value="<?php echo utf8_decode("$email");?>"required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -340,7 +340,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Nova senha</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="password" class="form-control" id="Cuser" name="senha" value="<?php echo "$senha";?>" required/>
+       							<input type="password" class="form-control" id="Cuser" name="senha" value="<?php echo utf8_decode("$senha");?>" required/>
         							</div>
                                         </div>
 										<div class="row">
@@ -348,7 +348,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>CEP</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser" name="cep" value="<?php echo "$cep";?>"required/>
+       							<input type="text" class="form-control" id="Cuser" name="cep" value="<?php echo utf8_decode("$cep");?>"required/>
         							</div>
                                         </div>
                                         <div class="row">
@@ -356,7 +356,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Estado</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser" name="estado" value="<?php echo "$estado";?>"required/>
+       							<input type="text" class="form-control" id="Cuser" name="estado" value="<?php echo utf8_decode("$estado");?>"required/>
         							</div>
                                         </div>
 										<div class="row">
@@ -364,7 +364,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Cidade</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser" name="cidade" value="<?php echo "$cidade";?>"required/>
+       							<input type="text" class="form-control" id="Cuser" name="cidade" value="<?php echo utf8_decode("$cidade");?>"required/>
         							</div>
                                         </div>
 										<div class="row">
@@ -372,19 +372,19 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Bairro</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser" name="bairro" value="<?php echo "$bairro";?>"required/>
+       							<input type="text" class="form-control" id="Cuser" name="bairro" value="<?php echo utf8_decode("$bairro");?>"required/>
         							</div>
                                         </div>
-										
+
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>Rua</label>
                                             </div>
                                 	<div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser"name="rua" value="<?php echo "$rua";?>"required/>
-        							</div>           
+       							<input type="text" class="form-control" id="Cuser"name="rua" value="<?php echo utf8_decode("$rua");?>"required/>
+        							</div>
                                         </div>
-                                        
+
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
@@ -392,7 +392,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Experiência</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser" name="experiencias" value="<?php echo "$xp";?>"required/>                
+                                <input type="text" class="form-control" id="Cuser" name="experiencias" value="<?php echo utf8_decode("$xp");?>"required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -400,7 +400,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Inglês</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser"name="ingles" value="<?php echo "$ingles";?>"required/>
+                                <input type="text" class="form-control" id="Cuser"name="ingles" value="<?php echo utf8_decode("$ingles");?>"required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -408,36 +408,36 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Formação</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser"  name="formacao" value="<?php echo "$formacao";?>"required/>
+       							<input type="text" class="form-control" id="Cuser"  name="formacao" value="<?php echo utf8_decode("$formacao");?>"required/>
                                             </div>
                                         </div>
 										<div class="row">
                                             <div class="col-md-12">
                                                 <label>Sua biografia</label><br/>
-                                                <input type="text" class="form-control" name="biografia" value="<?php echo"$bio";?>" />
+                                                <input type="text" class="form-control" name="biografia" value="<?php echo utf8_decode("$bio");?>" />
                                             </div>
                                         </div>
-										
+
                             </div>
 							<br>
 							<input class="btn btn-primary" type="submit" value="Alterar dados"/>
 					<input type="hidden" name ="env" value="altera">
-					
+
                         </div>
                     </div>
-					
+
                 </div>
-				
-            </form>  
+
+            </form>
 
 
 <?php
 if(isset($_POST['env']) && $_POST['env'] == "altera"){
-	
-	
+
+
 	if($_POST['nomeu'] && $_POST['senha'] && $_POST['nomec'] && $_POST['email'] && $_POST['rua'] && $_POST['biografia'] && $_POST['experiencias'] && $_POST['ingles'] && $_POST['formacao'] && $_POST['profissao'] ){
-		
-		
+
+
 $idcandidato = $_SESSION['IdCandidato'];
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
@@ -445,16 +445,16 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
-		
+$profissao	= utf8_encode($_SESSION['profissao']);
+
 
 	$nomeus =	$_POST['nomeu'];
 	$senhas =	$_POST['senha'];
@@ -470,7 +470,7 @@ $profissao	= utf8_encode($_SESSION['profissao']);
 	$ingless =	$_POST['ingles'];
 	$formacaos =	$_POST['formacao'];
 	$profissaos =	$_POST['profissao'];
-	
+
 	$_SESSION['NmCandidato'] = $nomecs;
 	$_SESSION['Email'] = $emails;
 	$_SESSION['NmUsuario'] = $nomeus;
@@ -501,29 +501,29 @@ $profissao	= utf8_encode($_SESSION['profissao']);
 	$formacaoss =$_SESSION['formacao'];
 	$profissaoss =$_SESSION['profissao'];
 	echo"$nomecss";
-	
+
 /*$query = "UPDATE TbCandidatos SET NmUsuario = '$nomeus' ,Senha =  '$senhas', NmCandidato = '$nomecss',
 	Email = '$emails' , estado = '$estados',cidade='$cidades',rua= '$ruas' , biografia = '$biografias',bairro= '$bairros', xp = '$experienciass' , ingles = '$ingless' ,
 	formacao = '$formacaos', profissao = '$profissaos' where IdCandidato = '$idcandidatos'";*/
-	
+
 	$query = "update TbCandidatos set NmCandidato = '$nomecss' , NmUsuario='$nomeuss', Senha= '$senhass', Email = '$emailss', estado = '$estadoss', cidade='$cidadess', cidade = '$ciadess', rua = '$ruass', biografia = '$biografiass', bairro = '$bairross', xp = '$experienciasss', ingles = '$inglesss', formacao = '$formacaoss', profissao = '$profissaoss' where IdCandidato=$idcandidato;";
 	$query2 = mysqli_query($conn, $query);
-	
+
 	echo"dados alterados";
-	
+
 	}
 	else{
 		echo"Preencha todos os campos";
-		
+
 	}
-	
+
 }
 else{
-	
-	
-	
+
+
+
 }
-?>			
+?>
         </div>
                 </div>
             </div>

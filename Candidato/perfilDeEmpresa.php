@@ -1,11 +1,11 @@
-<?php 
+<?php
 session_start();
 include_once("../assets/lib/dbconnect.php");
 if($_SESSION['Contador'] == 2){
 
 	header('Location: perfilDeEmpresa.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
@@ -15,15 +15,15 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 
 $idempresa = $_SESSION['idbusca'];
 
@@ -87,7 +87,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -97,30 +97,30 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div>
                     <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
 							while($row = mysqli_fetch_array($sqli2)){
 							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
-							
+
+
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <span>Painel Geral</span>
                         </li>
                         <li class="sidebar">
-                            <a href="TelaInicialCandidato.php">
+                            <a href="telaInicialCandidato.php">
                                 <i class="fa fa-globe"></i>
                                 <span>Início</span>
                             </a>
@@ -150,7 +150,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -237,8 +237,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -255,10 +255,10 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-									
-                                      <?php echo"$nome"?>
+
+                                      <?php echo utf8_decode("$nome")?>
                                     </h5>
-                                    
+
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -298,11 +298,11 @@ while($rowss = mysqli_fetch_array($sql2)){
 								<?php
 							$if = "select * from TbVagas where fk_IdEmpresa = '$idempresa';";
 							$if2 = mysqli_query($conn,$if);
-							
+
 							while($ifrow = mysqli_fetch_array($if2)){
 							$vag = utf8_encode($ifrow['vaga']);
 							$sal = utf8_encode($ifrow['salario']);
-                            echo"$vag, R$ $sal<br/>";
+                            echo utf8_decode("$vag, R$ $sal<br/>");
 							}
 							?>
                             </div>
@@ -316,7 +316,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Nome da Empresa</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$nome ";?></p>
+                                                <p><?php echo utf8_decode("$nome ");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -324,16 +324,16 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label> E-mail  </label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$email2";?></p>
+                                                <p><?php echo utf8_decode("$email2");?></p>
                                             </div>
                                         </div>
-                                      
+
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>CNPJ</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$cnpj";?></p>
+                                                <p><?php echo utf8_decode("$cnpj");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -341,10 +341,10 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Razão Social</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$razao";?></p>
+                                                <p><?php echo utf8_decode("$razao");?></p>
                                             </div>
                                         </div>
-                                        
+
                             </div>
                             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                       	<div class="row">
@@ -352,7 +352,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>CEP</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$cep";?></p>
+                                                <p><?php echo utf8_decode("$cep");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -360,7 +360,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Cidade</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$cidade";?></p>
+                                                <p><?php echo utf8_decode("$cidade");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -368,7 +368,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Estado</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo "$estado";?></p>
+                                                <p><?php echo utf8_decode("$estado");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -376,7 +376,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Bairro</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$bairro";?></p>
+                                                <p><?php echo utf8_decode("$bairro");?></p>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -384,21 +384,21 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Rua</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p><?php echo"$endereco";?></p>
+                                                <p><?php echo utf8_decode("$endereco");?></p>
                                             </div>
                                         </div>
-                                       
+
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <label>Biografia</label><br/>
-                                                <p><?php echo"$biografia";?></p>
+                                                <p><?php echo utf8_decode("$biografia");?></p>
                                             </div>
                                         </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>
         </div>
                 </div>
             </div>
@@ -422,27 +422,27 @@ while($rowss = mysqli_fetch_array($sql2)){
 
 
 if(isset($_POST['env2']) && $_POST['env2'] == "clicou"){
-	
-	
-	
+
+
+
 	$sqlil = "select * from TbSolicitacao where fk_IdCandidato = '$idcandidato' and fk_IdEmpresa='$idempresa'";
 	$sqlil2 = mysqli_query($conn,$sqlil);
 	$echo = mysqli_num_rows($sqlil2);
-	
+
 	if($echo>=1){
-		
+
 	}
 	else{
 	if(mysqli_query($conn,"insert into TbSolicitacao(fk_IdEmpresa,fk_IdCandidato) values('$idempresa','$idcandidato')")){
-		
+
 	}
 	else{
-		
+
 	}
 	}
 }
 else{
-	
+
 }
 
 ?>

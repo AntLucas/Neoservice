@@ -16,7 +16,7 @@ error_reporting(0);
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/css/cadastro.css">
 <script type="text/javascript" >
-    
+
     function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
             document.getElementById('rua').value=("");
@@ -39,7 +39,7 @@ error_reporting(0);
             alert("CEP não encontrado.");
         }
     }
-        
+
     function pesquisacep(valor) {
 
         //Nova variável "cep" somente com dígitos.
@@ -81,17 +81,17 @@ error_reporting(0);
             limpa_formulário_cep();
         }
     };
-	
+
 	function validarSenha(){
 		var senha = formCadastro.senha.value;
 		var senha2 = formCadastro.senha2.value;
-		
+
 		if (senha != senha2){
 		alert('Senhas diferentes.')
 		return false;
 		}
 	}
-	
+
 	//window.onload = function() {
     //var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
    // recaptcha.required = true;
@@ -99,9 +99,9 @@ error_reporting(0);
    // alert("Você é um robô? Se não, por favor complete o captcha.");
    //   }
   // }
-   
+
     </script>
-	
+
 <!------ Include the above in your HEAD tag ---------->
 </head>
 <body class="galaxy">
@@ -124,18 +124,18 @@ error_reporting(0);
                                     <div class="col-md-6">
 									 <div class="form-group">
                                             <input type="text" required="required" name="nmUsu" maxlength="15" class="form-control" placeholder="Nome de Usuário *" value="" />
-											
+
                                         </div>
                                         <div class="form-group">
                                             <input type="text" style="text-transform: capitalize;" required="required" name="nmEsb" maxlength="30" class="form-control texto" placeholder="Nome e Sobrenome *" value="" pattern="^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$" />
-											
+
                                         </div>
 										<div class="form-group">
                                             <input type="email" required="required" name="email" maxlength="45" class="form-control"  placeholder="E-mail *" value="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
                                         </div>
                                         <div class="form-group">
                                             <input type="password" required="required" name="senha" maxlength="16" class="form-control" placeholder="Senha *" />
-							
+
                                         </div>
                                         <div class="form-group">
                                             <input type="password" required="required" name="senha2" maxlength="16" class="form-control" placeholder="Confirme sua senha *"  />
@@ -145,17 +145,17 @@ error_reporting(0);
                                         </div>
                                         <div class="form-group">
                                             <div class="maxl">
-                                                <label class="radio inline"> 
+                                                <label class="radio inline">
                                                     <input type="radio" name="gender" value="male" checked>
-                                                    <span> Homem </span> 
+                                                    <span> Homem </span>
                                                 </label>
-                                                <label class="radio inline"> 
+                                                <label class="radio inline">
                                                     <input type="radio" name="gender" value="female">
-                                                    <span> Mulher </span> 
+                                                    <span> Mulher </span>
                                                 </label>
                                             </div>
                                         </div>
-										
+
                                     </div>
                                     <div class="col-md-6">
 									<form method="get" action=".">
@@ -171,7 +171,7 @@ error_reporting(0);
                                     </div>
                                 </div>
 								</form>
-								
+
                             </div>
                         </div>
                     </div>
@@ -198,44 +198,44 @@ error_reporting(0);
 			$bairro = $_POST['bairro'];
 			$cidade = $_POST['cidade'];
 			$estado = $_POST['uf'];
-			
-			
-		
+
+
+
 			if($senha == $senha2){
 			if ($conn){
 	$sqli = mysqli_query($conn,"select * from TbCandidatos where NmUsuario = '$nmUsu'");
 	$sqlii = mysqli_query($conn,"select * from TbCandidatos where Email = '$email'");
 
 	if(mysqli_num_rows($sqli)>=1){
-		
+
 	echo "<div class='alert alert-danger'>Esse nome de usuário já está sendo utilizado!</div>";
-		
-		
+
+
 	}
-	
-	
-	
+
+
+
 	elseif(mysqli_num_rows($sqlii)>=1){
-		
+
 	echo "<div class='alert alert-danger'>Esse E-mail já está sendo utilizado!</div>";
 	}
-	
-	
-	
-	
+
+
+
+
 
 	else{
-			
-			
-	
-	
+
+
+
+
 		$sql = @mysqli_query($conn,"insert into TbCandidatos(NmUsuario,Senha,NmCandidato,Email,bdat,cep,estado,cidade,bairro,rua,biografia,xp,ingles,formacao,profissao,foto)
 		values('$nmUsu','$senha','$nmEsb','$email','$bday','$cep','$estado','$cidade','$bairro','$rua','Edite esse campo','Edite esse campo','Edite esse campo','Edite esse campo','Sem Profissão','user.jpg');") or die (mysqli_error());
- 
+
 
 	echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, agora poderá efetuar login.</div>";
-	
- 
+
+
 	}
 }
 else{
@@ -246,7 +246,7 @@ else{
 			echo"<div class='alert alert-danger'>As Senhas devem ser iguais!</div>";
 		}
 		}
-		
+
 		else{
 			echo"<div class='alert alert-danger'>Preencha Todos os Campos</div>";
 		}

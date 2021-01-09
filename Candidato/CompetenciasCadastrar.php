@@ -1,12 +1,12 @@
-<?php 
+<?php
 session_start();
  if($_SESSION['Contador'] == 2){
 
 	header('Location: CompetenciasCadastrar.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
-include_once("../assets/lib/dbconnect.php"); 
+include_once("../assets/lib/dbconnect.php");
 
 $_SESSION['Contador'] +=1;
 
@@ -17,15 +17,15 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 
 $sql = "select * from TbCandidatos  where Email = '$email' and Senha = '$senha';";
 $sql2 = mysqli_query($conn, $sql);
@@ -33,7 +33,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 
 	$bday = utf8_encode($rowss['bdat']);
 	$nascimento = implode("/", array_reverse(explode("-", $bday)));
-	
+
 }
 ?>
 
@@ -79,7 +79,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -89,29 +89,29 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div>
                    <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
 							while($row = mysqli_fetch_array($sqli2)){
 							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
                 </div>
@@ -141,7 +141,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -228,8 +228,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -243,7 +243,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                            <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                             <div class="file btn btn-lg btn-primary">
                                 Alterar
-								
+
                                 <input type="file" name="file"/>
                             </div>
                         </div>
@@ -251,19 +251,19 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-									
-                                      <?php echo"$NmC"?>
+
+                                      <?php echo utf8_decode("$NmC")?>
                                     </h5>
                                     <h6>
-                                      <?php echo"$profissao"?>
-									  
+                                      <?php echo utf8_decode("$profissao")?>
+
                                     </h6>
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Cadastrar Competências</a>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     </div>
@@ -275,28 +275,28 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <?php
 							$if = "select a.NmCandidato,
 							b.Competencia
-							
+
 							from TbCandidatos a
 							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
 							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
-							
+
 							$if2 = mysqli_query($conn, $if);
-							
+
 							while($ifrow = mysqli_fetch_array($if2)){
 							$comp = utf8_encode($ifrow['Competencia']);
-                            echo"$comp<br/>";
+                            echo utf8_decode("$comp<br/>");
 							}
 							?>
-							
-						
+
+
                         </div>
                     </div>
-                   
 
-                    
+
+
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -306,30 +306,30 @@ while($rowss = mysqli_fetch_array($sql2)){
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <label>Escolha sua Competência
-												
+
 												<select name='select'>
 														<?php
 							$query ="select * from TbCompetencias;";
 							$query2 = mysqli_query($conn,$query);
 							while($rowsss = mysqli_fetch_array($query2)){
 								$competencia = $rowsss['competencia'];
-								
-                            echo"
+
+                            echo utf8_decode("
 							<option>$competencia</option>
-							
-							";
+
+							");
 							}
                             ?>
 							</select></label><br/>
                                             </div>
                                         </div>
-                                        
-                                         
+
+
 
 <br/>
 <br/>
-                                
-                   		
+
+
                                          <div class="row">
                                             <div class="col-md-12">
                                 <input type="submit" class="btn btn-primary" value="Cadastrar"/>
@@ -340,63 +340,63 @@ while($rowss = mysqli_fetch_array($sql2)){
 								<?php
 								if(isset($_POST['cadcomp']) && $_POST['cadcomp']=="cads"){
 									$competencia = $_POST['select'];
-									
-									
-									
-									
-									
+
+
+
+
+
 									$sqli = "select * from TbCompetencias where competencia = '$competencia'";
 									$sqli2 = mysqli_query($conn,$sqli);
-			
+
 									while($rowssa = mysqli_fetch_array($sqli2)){
-									
+
 									$idcompetencia = $rowssa['IdCompetencia'];
-									
-									
-								
+
+
+
 									}
-	
+
 									$sqli = "select * from TbCompetenciaRelacao where fk_IdCompetencia = '$idcompetencia' and fk_IdCandidato='$idcandidato'";
-									
+
 									$sqli2 = mysqli_query($conn,$sqli);
-	
+
 									if(mysqli_num_rows($sqli2)>=1){
-		
+
 									echo "<div class='alert alert-danger'>Essa competência já foi cadastrada!</div>";
-		
-		
+
+
 									}
 									else{
-	
+
 									if(mysqli_query($conn,"insert into TbCompetenciaRelacao(fk_IdCandidato,fk_IdCompetencia)
 										values('$idcandidato ','$idcompetencia');")){
-											
-										
+
+
 									}
 
 									else{
-		
-	
-	
-									
-	
+
+
+
+
+
 										echo"Erro ao cadastrar!";
-	
- 
+
+
 									}
 								}
 								header('Location: CompetenciasCadastrar.php');
 								}
 								else{
 									echo"";
-									
+
 								}
 								?>
-                            
+
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>
         </div>
                 </div>
             </div>

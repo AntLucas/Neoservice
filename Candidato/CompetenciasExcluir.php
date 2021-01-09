@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once("../assets/lib/dbconnect.php"); 
+include_once("../assets/lib/dbconnect.php");
  if($_SESSION['Contador'] == 2){
 	header('Location: CompetenciasExcluir.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
@@ -14,15 +14,15 @@ $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
 $cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']); 
+$estado	= utf8_encode($_SESSION['estado']);
 $cidade	= utf8_encode( $_SESSION['cidade']) ;
 $bairro	= utf8_encode($_SESSION['bairro'] );
 $rua	= utf8_encode($_SESSION['rua'] );
 $bio	= utf8_encode($_SESSION['biografia']);
 $xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']); 
+$ingles	= utf8_encode($_SESSION['ingles']);
 $formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']); 
+$profissao	= utf8_encode($_SESSION['profissao']);
 
 $sql = "select * from TbCandidatos  where Email = '$email' and Senha = '$senha';";
 $sql2 = mysqli_query($conn, $sql);
@@ -30,7 +30,7 @@ while($rowss = mysqli_fetch_array($sql2)){
 
 	$bday = utf8_encode($rowss['bdat']);
 	$nascimento = implode("/", array_reverse(explode("-", $bday)));
-	
+
 }
 ?>
 <!DOCTYPE html>
@@ -75,7 +75,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                         <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img"?>" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name"><?php echo"$NmC"?>
+                        <span class="user-name"><?php echo utf8_decode("$NmC")?>
                         </span>
                         <span class="user-role">Candidato</span>
                     </div>
@@ -85,29 +85,29 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div>
                    <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
 							$sqli2 = mysqli_query($conn, $sqli);
 							while($row = mysqli_fetch_array($sqli2)){
 							$Usuario = $row['NmUsuario'];
-							echo"<option value='$Usuario'></option>";
+							echo utf8_decode("<option value='$Usuario'></option>");
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -224,8 +224,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -246,22 +246,22 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div class="col-md-6">
                         <div class="profile-head">
                                     <h5>
-									
-                                      <?php echo"$NmC"?>
+
+                                      <?php echo utf8_decode("$NmC")?>
                                     </h5>
                                     <h6>
-                                      <?php echo"$profissao"?>
+                                      <?php echo utf8_decode("$profissao")?>
                                     </h6>
                                     <p class="proile-rating">ESTRELAS : <span>0/5</span></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Excluir Competências</a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                     </div>
-                   
+
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -270,27 +270,27 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <?php
 							$if = "select a.NmCandidato,
 							b.Competencia
-							
+
 							from TbCandidatos a
 							inner join TbCompetenciaRelacao c
 							on a.IdCandidato = c.fk_IdCandidato
 							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
-							
+
 							$if2 = mysqli_query($conn, $if);
-							
+
 							while($ifrow = mysqli_fetch_array($if2)){
 							$comp = utf8_encode($ifrow['Competencia']);
-                            echo"$comp<br/>";
+                            echo utf8_decode("$comp<br/>");
 							}
 							?>
-							
-						
+
+
                         </div>
                     </div>
 
-                    
+
                     <div class="col-md-8">
                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -306,19 +306,19 @@ while($rowss = mysqli_fetch_array($sql2)){
 							inner join TbCompetencias b
 							on b.IdCompetencia = c.fk_IdCompetencia
 							where IdCandidato = $idcandidato;";
-							
+
 							$iff2 = mysqli_query($conn,$iff);
-							
+
 							while($iffrow = mysqli_fetch_array($iff2)){
 							$comp = $iffrow['Competencia'];
 							$idcomp = $iffrow['IdCompetencia'];
-                            
-							
+
+
 							?>
                             	<form method="post">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label><?php echo"$comp "?></label><br/><br/>
+                                                <label><?php echo utf8_decode("$comp ")?></label><br/><br/>
                                             </div>
                                             <div class="col-md-4">
                                 <button type="submit" class="btn btn-primary">X</button>
@@ -330,25 +330,25 @@ while($rowss = mysqli_fetch_array($sql2)){
 								<?php
 								}
 							?>
-							
+
 							<?php
 							if(isset($_POST['exc']) && $_POST['exc'] == "excluir"){
 								$idcompetencia = $_POST['idcomp'];
-							
-								
+
+
 								if(mysqli_query($conn,"delete from TbCompetenciaRelacao where fk_IdCandidato = '$idcandidato' and fk_IdCompetencia = '$idcompetencia'")){
 									echo"excluido com sucesso";
 								}
 							}
 							else{
-								
+
 							}
 							?>
                         </div
 						>
                     </div>
                 </div>
-            </form>           
+            </form>
         </div>
                 </div>
             </div>

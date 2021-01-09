@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once("../assets/lib/dbconnect.php"); ?>
 <?php
@@ -10,13 +10,13 @@ ini_set(“display_errors”, 0 );
 <?php
 
 $id = $_SESSION['IdCandidato'];
-$idcandidato =  utf8_encode($_SESSION['IdCandidato']);
+$idcandidato =  utf8_decode($_SESSION['IdCandidato']);
 
 
  if($_SESSION['Contador'] == 2){
 	header('Location: chatCandidato.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 ?>
@@ -35,11 +35,11 @@ $_SESSION['Contador'] +=1;
 <?php
 						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
-							$img = utf8_encode($assoc['foto']);
+							$img = utf8_decode($assoc['foto']);
 						}
 						?>
 <head>
-
+<meta charset="utf-8">
 <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script><script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script><meta charset='UTF-8'><meta name="robots" content="noindex"><link rel="shortcut icon" type="image/x-icon" href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" /><link rel="mask-icon" type="" href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" /><link rel="canonical" href="https://codepen.io/emilcarlsson/pen/ZOQZaV?limit=all&page=74&q=contact+" />
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
 
@@ -48,9 +48,9 @@ $_SESSION['Contador'] +=1;
 <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'><link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
 <style class="cp-pen-styles">>body {
   display: flex;
-  
-  
-  
+
+
+
   font-family: "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
 
@@ -721,7 +721,7 @@ $_SESSION['Contador'] +=1;
 	border: none;
 	color: #ffffff;
 
-	
+
 
 }
 
@@ -792,38 +792,38 @@ $_SESSION['Contador'] +=1;
 		<div id="contacts">
 			<ul>
 				<?php
-				
-				
+
+
 				$seleciona = mysqli_query($conn,"select a.IdEmpresa,
 				a.NmEmpresa,
 				b.IdCandidato,
 				b.NmCandidato,
 				c.IdContato,
 				a.foto
-		
+
 
 				from TbCandidatos b
 				inner join TbContatos c
 				on b.IdCandidato = c.fk_IdCandidato
-				
+
 				inner join TbEmpresas a
 				on a.IdEmpresa = c.fk_IdEmpresa where b.IdCandidato = $id;");
-		
-		
-		
+
+
+
 				$conta = mysqli_num_rows($seleciona);
-				
+
 				if($conta <=0){
 					echo"Nenhuma conversa encontrada!";
 				}
 				else{
 					while($row = mysqli_fetch_array($seleciona)){
-						
-					$nome = utf8_encode($row['NmEmpresa']);
-					$ide = utf8_encode($row['IdEmpresa']);
-					$idcont = utf8_encode($row['IdContato']);
-					$img2 = utf8_encode($row['foto']);
-					
+
+					$nome = utf8_decode($row['NmEmpresa']);
+					$ide = utf8_decode($row['IdEmpresa']);
+					$idcont = utf8_decode($row['IdContato']);
+					$img2 = utf8_decode($row['foto']);
+
 				?>
 				<form method="post" action="chatCandidato.php" >
 				<?php
@@ -832,44 +832,44 @@ $_SESSION['Contador'] +=1;
 				}
 				else{
 				?><li class="contact">
-				<?php 
+				<?php
 				}
 				?>
 					<div class="wrap">
 						<span class="contact-status away"></span>
 						 <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img2"?>" alt="User picture">
-						<?php 
+						<?php
 						echo"<input type='hidden' name='idemp' value='$ide'/> <input type='hidden' name='idcont' value='$idcont'/>";
-					
+
 						?>
-						
+
 						<div class="meta">
 							<p class="name"><?php echo"<input type='hidden' name='clicarcontato' value='clicou'><input type='hidden' name='nomeemp' value='$nome'/>$nome";  ?></p>
 							<p class="preview"><?php
-							
+
 							$ultimo = mysqli_query($conn,"select max(IdMensagem) from TbMensagens where fk_IdContato = $idcont;");
 							while($rowss = mysqli_fetch_array($ultimo)){
-					
-							$mensagemultimo = utf8_encode($rowss['max(IdMensagem)']);
-					
+
+							$mensagemultimo = utf8_decode($rowss['max(IdMensagem)']);
+
 							$ultimo = mysqli_query($conn,"select * from TbMensagens where IdMensagem = $mensagemultimo");
 							while($rowsss = mysqli_fetch_array($ultimo)){
-					
+
 							$mensagemultima = $rowsss['Mensagem'];
-							$falando = utf8_encode($rowsss['fk_IdCandidato']);
-							
-							
+							$falando = utf8_decode($rowsss['fk_IdCandidato']);
+
+
 							if($falando<=0){
-							
+
 							echo"$nome: $mensagemultima";
 							}
 							else{
 								echo"Você: $mensagemultima ";
 							}
 							}
-					
+
 							}
-							
+
 							?><?php echo"<input  type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
 						</div>
 					</div>
@@ -878,29 +878,29 @@ $_SESSION['Contador'] +=1;
 				<?php
 				}}
 				?>
-				<?php 
+				<?php
 				if(isset($_POST['clicarcontato']) && $_POST['clicarcontato'] == "clicou"){
 				$_SESSION['idemp'] = $_POST['idemp'];
 				$_SESSION['nomeemp'] = $_POST['nomeemp'];
 				$_SESSION['idcontato'] = $_POST['idcont'];
-				
-				
+
+
 				echo"".$_SESSION['idemp'] .$_SESSION['nomeemp'] .$_SESSION['idcontato'];
 				}
 				else{
-					
+
 				}
-				
+
 				$i = $_SESSION['idemp'];
 				$query = mysqli_query($conn,"select foto from TbEmpresas where IdEmpresa = $i");
 				while($while2 = mysqli_fetch_assoc($query)){
-					$img3 = utf8_encode($while2['foto']);
+					$img3 = utf8_decode($while2['foto']);
 				}
-				
+
 				?>
-			
-				
-				
+
+
+
 			</ul>
 		</div>
 		<div id="bottom-bar">
@@ -908,7 +908,7 @@ $_SESSION['Contador'] +=1;
 			<a  href="logoutCandidato.php"><button class="mudar "id="settings"><i class="fa fa-power-off" aria-hidden="true"></i> <span>Sair</span></button></a>
 		</div>
 	</div>
-	
+
 	<form method="post" enctype="multipart/form-data">
 	<div class="content">
 		<div class="contact-profile">
@@ -926,14 +926,14 @@ $_SESSION['Contador'] +=1;
 		$idpara = $_SESSION['idemp'];
 		$idde = $id;
 		$fkcontato = $_SESSION['idcontato'];
-		
+
 		if(empty($mensagem)){
 			echo"<code>Não é possível enviar uma mensagem vazia!</code>";
 		}
 		else{
 			if(mysqli_query($conn,"insert into TbMensagens(fk_IdContato,fk_IdEmpresa,fk_IdCandidato,Mensagem)
 			values('$fkcontato',null,$idde,'$mensagem');")){
-			
+
 			}
 			else{
 				echo"<code>Erro ao enviar a mensagem! Escolha uma conversa.</code>";
@@ -941,16 +941,16 @@ $_SESSION['Contador'] +=1;
 		}
 	}
 	else{
-		
+
 	}
 ?>
 		<div id="lista" class="messages">
 		<ul>
-		
-		
+
+
 		<?php
 		$contatoconversa = $_SESSION['idcontato'];
-		
+
 		$nc = @mysqli_query($conn,"select a.NmEmpresa,
 		b.NmCandidato,
 		c.fk_IdEmpresa,
@@ -961,52 +961,52 @@ $_SESSION['Contador'] +=1;
 		from TbEmpresas a inner join
 		TbContatos d
 		on a.IdEmpresa = d.fk_IdEmpresa
-		inner join TbCandidatos b 
+		inner join TbCandidatos b
 		on b.IdCandidato = d.fk_IdCandidato
 		inner join TbMensagens c
 		on c.fk_IdContato = d.IdContato
 		where d.IdContato = $contatoconversa;");
-		
-		
-		
+
+
+
 		while($lc = @mysqli_fetch_array($nc) ){
 			$ide = $lc['fk_IdEmpresa'];
 			$idc = $lc['fk_IdCandidato'];
-			$a = utf8_encode($lc['NmEmpresa']);
-			$b = utf8_encode($lc['NmCandidato']);
-			$mensagens = utf8_encode($lc ['Mensagem']);
-			
-			
-			
+			$a = utf8_decode($lc['NmEmpresa']);
+			$b = utf8_decode($lc['NmCandidato']);
+			$mensagens = utf8_decode($lc ['Mensagem']);
+
+
+
 			 if($idc == null ){
 				echo "
 					<li class='sent'>
 					  <img class='img-responsive img-rounded' src='../assets/images/fotos/$img3' alt='User picture'>
 					<p>$mensagens</p>
-					
+
 				</li>
 				";
-				
+
 			 }
-			
+
 			if($idc !=0 ){
 				echo "
-				
+
 				<li class='replies'>
 					 <img class='img-responsive img-rounded' src='../assets/images/fotos/$img' alt='User picture'>
 					<p>$mensagens</p>
 				</li>
 				";
-				
+
 			}
-			
-					
+
+
 		}
 		?>
-			
-				
-				
-				
+
+
+
+
 			</ul>
 		</div>
 		<div class="message-input">
@@ -1022,5 +1022,5 @@ $_SESSION['Contador'] +=1;
 	</form>
 </div>
 
- 
+
 </body></html>
