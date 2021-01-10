@@ -150,6 +150,10 @@ $_SESSION['Contador'] = 1;
                         </li>
                     </ul>
                 </div>
+                 <div class="sidebar-brand">
+                    <a href="ajudaEmpresa.php">AJUDA</a>
+
+                </div>
                 <!-- sidebar-menu  -->
             </div>
             <!-- sidebar-content  -->
@@ -343,7 +347,7 @@ $sqlpesquisa = mysqli_query($conn,"select * from TbCompetencias where competenci
 
 
 
-				
+
 
 				</div>
 
