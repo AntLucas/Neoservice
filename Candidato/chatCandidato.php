@@ -912,13 +912,20 @@ $_SESSION['Contador'] +=1;
 	<form method="post" enctype="multipart/form-data">
 	<div class="content">
 		<div class="contact-profile">
-			 <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img3"?>" alt="User picture">
+		    <?php  if($_SESSION['nomeemp']){
+		        ?>
+		        <img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img3"?>" alt="User picture">
 			<p><?php echo"".$_SESSION['nomeemp'];?></p>
 			<div class="social-media">
 				<i class="fa fa-facebook" aria-hidden="true"></i>
 				<i class="fa fa-twitter" aria-hidden="true"></i>
 				 <i class="fa fa-instagram" aria-hidden="true"></i>
 			</div>
+			<?php
+		    }
+		    ?>
+
+
 		</div>
 		<?php
 	if(isset($_POST['env']) && $_POST['env'] == "envMsg"){
@@ -974,29 +981,29 @@ $_SESSION['Contador'] +=1;
 			$idc = $lc['fk_IdCandidato'];
 			$a = utf8_decode($lc['NmEmpresa']);
 			$b = utf8_decode($lc['NmCandidato']);
-			$mensagens = utf8_decode($lc ['Mensagem']);
+			$mensagens = utf8_encode($lc ['Mensagem']);
 
 
 
 			 if($idc == null ){
-				echo "
+				echo utf8_decode("
 					<li class='sent'>
 					  <img class='img-responsive img-rounded' src='../assets/images/fotos/$img3' alt='User picture'>
 					<p>$mensagens</p>
 
 				</li>
-				";
+				");
 
 			 }
 
 			if($idc !=0 ){
-				echo "
+				echo  utf8_decode("
 
 				<li class='replies'>
 					 <img class='img-responsive img-rounded' src='../assets/images/fotos/$img' alt='User picture'>
 					<p>$mensagens</p>
 				</li>
-				";
+				");
 
 			}
 

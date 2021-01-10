@@ -850,15 +850,15 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 							$ultimo = mysqli_query($conn,"select * from TbMensagens where IdMensagem = $mensagemultimo");
 							while($rowsss = mysqli_fetch_array($ultimo)){
 
-							$mensagemultima = utf8_decode($rowsss['Mensagem']);
+							$mensagemultima = utf8_encode($rowsss['Mensagem']);
 							$falando = utf8_decode($rowsss['fk_IdCandidato']);
 
 
 							if($falando<=0){
-							echo"Você: $mensagemultima ";
+							echo utf8_decode("Você: $mensagemultima ");
 							}
 							else{
-								echo"$nome: $mensagemultima";
+								echo utf8_decode("$nome: $mensagemultima");
 							}
 							}
 
@@ -912,6 +912,9 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 	<form method="post" enctype="multipart/form-data">
 	<div class="content">
 		<div class="contact-profile">
+		    <?php
+		        if($_SESSION['nomecan']){
+		    ?>
 			<img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img3"?>" alt="User picture">
 			<p><?php echo"".$_SESSION['nomecan'];?></p>
 			<div class="social-media">
@@ -919,6 +922,9 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 				<i class="fa fa-twitter" aria-hidden="true"></i>
 				 <i class="fa fa-instagram" aria-hidden="true"></i>
 			</div>
+			<?php
+		        }
+			?>
 		</div>
 		<?php
 	if(isset($_POST['env']) && $_POST['env'] == "envMsg"){
@@ -974,29 +980,29 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 			$idc = $lc['fk_IdCandidato'];
 			$a = utf8_decode($lc['NmEmpresa']);
 			$b = utf8_decode($lc['NmCandidato']);
-			$mensagens = utf8_decode($lc ['Mensagem']);
+			$mensagens = utf8_encode($lc ['Mensagem']);
 
 
 
 			 if($ide == null ){
-				echo "
+				echo utf8_decode("
 					<li class='sent'>
 					<img class='img-responsive img-rounded' src='../assets/images/fotos/$img3' alt='User picture'>
 					<p>$mensagens</p>
 
 				</li>
-				";
+				");
 
 			 }
 
 			if($ide !=0 ){
-				echo "
+				echo utf8_decode("
 
 				<li class='replies'>
 					<img class='img-responsive img-rounded' src='../assets/images/fotos/$img' alt='User picture'>
 					<p>$mensagens</p>
 				</li>
-				";
+				");
 
 			}
 
