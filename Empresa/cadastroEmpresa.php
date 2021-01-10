@@ -1,10 +1,12 @@
-<?php 
+<?php
+header('Content-Type: text/html; charset=UTF-8');
 session_start();
 include_once("../assets/lib/dbconnect.php"); ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <title>NeoService - Cadastro</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -14,7 +16,7 @@ include_once("../assets/lib/dbconnect.php"); ?>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/css/cadastro.css">
 <script type="text/javascript" >
-    
+
     function limpa_formulário_cep() {
             //Limpa valores do formulário de cep.
             document.getElementById('rua').value=("");
@@ -37,7 +39,7 @@ include_once("../assets/lib/dbconnect.php"); ?>
             alert("CEP não encontrado.");
         }
     }
-        
+
     function pesquisacep(valor) {
 
         //Nova variável "cep" somente com dígitos.
@@ -104,27 +106,27 @@ include_once("../assets/lib/dbconnect.php"); ?>
 
 
 function validarCNPJ(cnpj) {
- 
+
     cnpj = cnpj.replace(/[^\d]+/g,'');
- 
+
     if(cnpj == '') return false;
-     
+
     if (cnpj.length != 14)
         return false;
- 
+
     // Elimina CNPJs invalidos conhecidos
-    if (cnpj == "00000000000000" || 
-        cnpj == "11111111111111" || 
-        cnpj == "22222222222222" || 
-        cnpj == "33333333333333" || 
-        cnpj == "44444444444444" || 
-        cnpj == "55555555555555" || 
-        cnpj == "66666666666666" || 
-        cnpj == "77777777777777" || 
-        cnpj == "88888888888888" || 
+    if (cnpj == "00000000000000" ||
+        cnpj == "11111111111111" ||
+        cnpj == "22222222222222" ||
+        cnpj == "33333333333333" ||
+        cnpj == "44444444444444" ||
+        cnpj == "55555555555555" ||
+        cnpj == "66666666666666" ||
+        cnpj == "77777777777777" ||
+        cnpj == "88888888888888" ||
         cnpj == "99999999999999")
         return false;
-         
+
     // Valida DVs
     tamanho = cnpj.length - 2
     numeros = cnpj.substring(0,tamanho);
@@ -139,7 +141,7 @@ function validarCNPJ(cnpj) {
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(0))
         return false;
-         
+
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0,tamanho);
     soma = 0;
@@ -152,21 +154,21 @@ function validarCNPJ(cnpj) {
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
     if (resultado != digitos.charAt(1))
           return false;
-           
+
     return true;
-    
+
 }
 
 	function validarSenha(){
 		var senha = formCadastro.senha.value;
 		var senha2 = formCadastro.senha2.value;
-		
+
 		if (senha != senha2){
 		alert('Senhas diferentes.')
 		return false;
 		}
 	}
-	
+
 	//window.onload = function() {
     //var recaptcha = document.forms["formCadastro"]["g-recaptcha-response"];
     //recaptcha.required = true;
@@ -174,7 +176,7 @@ function validarCNPJ(cnpj) {
    // alert("Você é um robô? Se não, por favor complete o captcha.");
    //   }
    //}
-	
+
 	</script>
 <!------ Include the above in your HEAD tag ---------->
 </head>
@@ -242,7 +244,7 @@ function validarCNPJ(cnpj) {
 
             </div>
 			</div>
-			
+
 			<script src="../assets/js/ceuEstrelado.js"></script>
 			<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 </body>
@@ -250,9 +252,9 @@ function validarCNPJ(cnpj) {
 
 <?php
 	if(isset($_POST['env']) && $_POST['env'] == "Registrar"){
-	    
+
 		if($_POST['nmUsu'] || $_POST['nmEmpresa'] || $_POST['razaoSocial'] || $_POST['cnpj'] || $_POST['email'] || $_POST['senha'] || $_POST['senha2'] || $_POST['cep'] || $_POST['rua'] || $_POST['bairro'] || $_POST['cidade'] || $_POST['estado'] || $_POST['numero']){
-		   
+
 			$nmUsu = $_POST['nmUsu'];
 			$nmEmpresa = $_POST['nmEmpresa'];
 			$razaoSocial = $_POST['razaoSocial'];
@@ -266,8 +268,8 @@ function validarCNPJ(cnpj) {
 			$cidade = $_POST['cidade'];
 			$estado = $_POST['uf'];
 			$numero = $_POST['numero'];
-			
-		
+
+
 			if($senha == $senha2){
 			if ($conn){
 	$sqli = mysqli_query($conn,"select * from TbEmpresas where NmUsuario = '$nmUsu'");
@@ -277,26 +279,26 @@ function validarCNPJ(cnpj) {
 	if(mysqli_num_rows($sqli)>0){
 
 	echo "<div class='alert alert-danger'>Esse nome de usuário já está sendo utilizado!</div>";
-		
-	
+
+
 	}
-	
-	
-	
+
+
+
 	elseif(mysqli_num_rows($sqlii)>0){
-		
+
 	echo "<div class='alert alert-danger'>Esse E-mail já está sendo utilizado!</div>";
 
 	}
-	
+
 	elseif(mysqli_num_rows($sqliii)>0){
 
 	echo "<div class='alert alert-danger'>Esse CNPJ já está sendo utilizado!</div>";
 	}
-	
-	
-	
-	
+
+
+
+
 
 	else{
 		    $nmUsu = $_POST['nmUsu'];
@@ -312,27 +314,48 @@ function validarCNPJ(cnpj) {
 			$cidade = $_POST['cidade'];
 			$estado = $_POST['uf'];
 			$numero = $_POST['numero'];
-			
-			
+
+
 			if ($result = mysqli_query($conn,"insert into TbEmpresas(NmUsuario,Senha,Email,NmEmpresa,CNPJ,Razao,CEP,Estado,Cidade,Bairro,Endereco,Numero,biografia,foto)
 	    	values('$nmUsu','$senha','$email','$nmEmpresa','$cnpj','$razaoSocial',$cep,'$estado','$cidade','$bairro','$rua',$numero,'Edite esse campo','user.jpg')")) {
             echo "Returned rows are: " . mysqli_num_rows($result);
-  
+
             mysqli_free_result($result);
+
+
+            $sql= mysqli_query($conn,"select * from TbEmpresas  where Email = '$email' and Senha = '$senha';");
+			$row = mysqli_num_rows($sql);
+			$linha = mysqli_fetch_assoc($sql);
+			$idemp = $linha['IdEmpresa'];
+			mysqli_query($conn,"insert into TbContatos(fk_IdEmpresa,fk_IdCandidato)
+            values($idemp,1);");
+
+            $sqlcontato= mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = 1 and fk_IdEmpresa=$idemp;");
+            $row2 = mysqli_num_rows($sqlcontato);
+			$linha2 = mysqli_fetch_assoc($sqlcontato);
+			$idcontat = $linha2['IdContato'];
+
+            mysqli_query($conn," insert into TbMensagens(fk_IdContato,fk_IdEmpresa,fk_IdCandidato,Mensagem)
+            values($idcontat,$idemp,1,'Olá, seja bem vindo ao meu sistema');");
+
+            mysqli_query($conn," insert into TbSolicitacao(fk_IdEmpresa,fk_IdCandidato)
+            values($idemp,2);");
             }
+
+
             else
             {
                 echo"<script>alert('erro')</script>";
             }
             //$sql = mysqli_query($conn,"insert into TbEmpresas(NmUsuario,Senha,Email,NmEmpresa,CNPJ,Razao,CEP,Estado,Cidade,Bairro,Endereco,Numero,biografia,foto)
 	    //	values('$nmUsu','$senha','$email','$nmEmpresa','$cnpj','$razaoSocial',$cep,'$estado','$cidade','$bairro','$rua',$numero,'Edite esse campo','user.jpg');") or die (mysqli_error());
-		
-		
-		
-		
-		
+
+
+
+
+
 echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, agora poderá efetuar seu login.</div>";
-	
+
 	}
 
 }
@@ -341,15 +364,15 @@ else{
 }
 		}
 		else{
-			
+
 			echo"<div class='alert alert-danger'>As Senhas devem ser iguais!</div>";
 		}
 		}
-		
+
 		else{
 			echo"<div class='alert alert-danger'>Preencha Todos os Campos</div>";
 		}
-		
-			
+
+
 	}
 ?>

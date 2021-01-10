@@ -2,15 +2,15 @@
 session_start();
 include_once("../assets/lib/dbconnect.php");
 if($_SESSION['Contador'] == 2){
-	
+
 	header('Location: ajudaEmpresa.php');
-	
-	$_SESSION['Contador'] = 0; 
+
+	$_SESSION['Contador'] = 0;
 }
 $_SESSION['Contador'] +=1;
 
 
-				
+
 	$nmu = utf8_encode($_SESSION['NmUsuario']) ;
 	$idempresa=  utf8_encode($_SESSION['IdEmpresa']);
 	$email = utf8_encode($_SESSION['Email']);
@@ -73,16 +73,16 @@ $_SESSION['Contador'] +=1;
                 <div>
                     <form method="post" action="pesquisaEmpresa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                  <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = mysqli_query($conn,"select * from TbCompetencias;");
@@ -92,9 +92,9 @@ $_SESSION['Contador'] +=1;
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
+
                         </div>
                     </div>
 				</div>
@@ -119,7 +119,7 @@ $_SESSION['Contador'] +=1;
                                     <li>
                                         <a href="editarPerfilEmpresa.php">Editar Perfil</a>
                                     </li>
-									
+
 									 <li>
                                         <a href="VagasCadastrarEditarExcluir.php">Vagas</a>
                                     </li>
@@ -135,7 +135,7 @@ $_SESSION['Contador'] +=1;
                 </div>
                 <div class="sidebar-brand">
                     <a href="ajudaEmpresa.php">AJUDA</a>
-                    
+
                 </div>
                 <!-- sidebar-menu  -->
             </div>
@@ -190,16 +190,16 @@ while($lc = @mysqli_fetch_array($slq) ){
 	$idsoli = $lc['IdSolicitacao'];
 	$nmcandidato = utf8_encode($lc['NmCandidato']);
 	$nmempresa= utf8_encode($lc['NmEmpresa']);
-	
+
 	$sqlil = mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = '$idcand' and fk_IdEmpresa='$idempresa'");
 	$echo = mysqli_num_rows($sqlil);
-	
+
 	if($echo>0){
-	
+
 	}
-		
+
 	else{
-	
+
 	?>
 
                         <a class="dropdown-item" href="chatEmpresa.php">
@@ -209,10 +209,10 @@ while($lc = @mysqli_fetch_array($slq) ){
                                 </div>
                                 <div class="content">
                                     <div class="notification-detail">
-										
+
 	<?php
-	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
-	
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato!<br>");
+
 
 
 ?>
@@ -221,18 +221,18 @@ while($lc = @mysqli_fetch_array($slq) ){
                                        <form method="Post" action="iniciarContato.php">
 									<input type="hidden" name="pegar" value="<?php echo"$idcand";?>"/>
 									<input type="submit" name="a" value="iniciar contato"/>
-									
-	
+
+
 									</form>
-									
-									
+
+
                                     </div>
                                 </div>
                             </div>
 							<?php
 										}
 }
-	
+
 
 
 ?>
@@ -241,11 +241,11 @@ while($lc = @mysqli_fetch_array($slq) ){
 
                         </a>
                         <div class="dropdown-divider"></div>
-                   
+
                     </div>
-					
-					
-					
+
+
+
                 </div>
                 <div class="dropdown">
                     <a href="#" class="" id="dropdownMenuMessage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -273,34 +273,38 @@ while($lc = @mysqli_fetch_array($slq) ){
                     <div class="container emp-profile">
             <form method="post">
                 <div class="row">
-                    
-                    
+
+
                         <div class="profile-head">
                                     <h4>
-									
+
                                       <?php echo "Informações"?>
                                     </h4>
-                                
+
                                     <h5>
-									
+
                                       <?php echo "Acesse o resumo do seu perfil, e dê uma olhada em como seu perfil é visto por outros usuário. Edite suas informações em editar perfil, na hora de trocar de foto, use um formato válido de imagem, também podendo cadastrar vagas de emprego"?>
                                     </h5>
                                     <h5>
-									
+
                                       <?php echo "Veja se existem solicitações de contato no clicando no ícone de notificação no canto inferior esquerdo no menu"?>
                                     </h5>
                                     <h5>
-									
+
                                       <?php echo "Utilize a barra de pesquisa para pesquisar por candidatos através de suas competências como por exemplo: \"informatica\""?>
                                     </h5>
                                     <h5>
-									
-                                      <?php echo "Ao encontrar um candidato na busca, vizualise o perfil, e caso queira inicie um contato e então você poderá mandar mensagens para ele, utilizando o nosso chat que está ao lado esquerdo da engrenagem no canto inferior esquerdo da tela, no menu."?>
+
+                                      <?php echo "Ao encontrar um candidato na busca, vizualise o perfil, e caso queira inicie um contato e então você poderá mandar mensagens para ele, utilizando o nosso chat que está ao lado esquerdo da engrenagem no canto inferior esquerdo da tela, no menu"?>
                                     </h5>
-                                    
-                        
+                                    <h5>
+
+                                      <?php echo "Para uma experiência mais completa crie também uma conta de candidato."?>
+                                    </h5>
+
+
                     </div>
-                    
+
                 </div>
             </div>
         </main>

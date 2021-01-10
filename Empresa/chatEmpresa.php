@@ -855,7 +855,7 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 
 
 							if($falando<=0){
-							echo utf8_decode("Você: $mensagemultima ");
+							echo "Você:"; echo utf8_decode("$mensagemultima ");
 							}
 							else{
 								echo utf8_decode("$nome: $mensagemultima");
@@ -864,7 +864,7 @@ $idempresa=  utf8_decode($_SESSION['IdEmpresa']);
 
 							}
 
-							?><?php echo"<input type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
+							?><br><?php  echo"<input type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
 						</div>
 					</div>
 				</li>

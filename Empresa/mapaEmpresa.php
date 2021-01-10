@@ -231,7 +231,7 @@ while($lc = @mysqli_fetch_array($slq) ){
                                     <div class="notification-detail">
 
 	<?php
-	echo utf8_decode("<br>$nmcandidato Solicitou um contato$echo!<br>");
+	echo utf8_decode("<br>$nmcandidato Solicitou um contato!<br>");
 
 
 
