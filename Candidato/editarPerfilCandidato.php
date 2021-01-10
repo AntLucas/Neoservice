@@ -268,7 +268,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     </h5>
 
                                         <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser"name="profissao" value="<?php echo utf8_decode("$profissao");?>"required/>
+                                <input type="text" class="form-control" id="Cuser"name="profissao" placeholder="Edite esse campo" value="<?php echo utf8_decode("$profissao");?>"required/>
                                             </div>
 
 
@@ -392,7 +392,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Experiência</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser" name="experiencias" value="<?php echo utf8_decode("$xp");?>"required/>
+                                <input type="text" class="form-control" id="Cuser" name="experiencias" placeholder="Edite esse campo" value="<?php echo utf8_decode("$xp");?>"required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -400,7 +400,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Inglês</label>
                                             </div>
                                             <div class="col-md-6">
-                                <input type="text" class="form-control" id="Cuser"name="ingles" value="<?php echo utf8_decode("$ingles");?>"required/>
+                                <input type="text" class="form-control" id="Cuser"name="ingles" placeholder="Edite esse campo" value="<?php echo utf8_decode("$ingles");?>"required/>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -408,13 +408,13 @@ while($rowss = mysqli_fetch_array($sql2)){
                                                 <label>Formação</label>
                                             </div>
                                             <div class="col-md-6">
-       							<input type="text" class="form-control" id="Cuser"  name="formacao" value="<?php echo utf8_decode("$formacao");?>"required/>
+       							<input type="text" class="form-control" id="Cuser"  name="formacao" placeholder="Edite esse campo" value="<?php echo utf8_decode("$formacao");?>"required/>
                                             </div>
                                         </div>
 										<div class="row">
                                             <div class="col-md-12">
                                                 <label>Sua biografia</label><br/>
-                                                <input type="text" class="form-control" name="biografia" value="<?php echo utf8_decode("$bio");?>" />
+                                                <input type="text" class="form-control" name="biografia" placeholder="Edite esse campo" value="<?php echo utf8_decode("$bio");?>" />
                                             </div>
                                         </div>
 

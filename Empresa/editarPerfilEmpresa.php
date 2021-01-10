@@ -442,7 +442,7 @@ while($lc = @mysqli_fetch_array($slq) ){
 										 <div class="row">
                                             <div class="col-md-12">
                                                 <label>Sua biografia</label><br/>
-                                                <p> <input type="text" class="form-control" id="biografia" name="biografia" value="<?php echo "$biografia";?>"required/></p>
+                                                <p> <input type="text" class="form-control" id="biografia" name="biografia" placeholder="Edite esse campo" value="<?php echo "$biografia";?>"required/></p>
                                             </div>
                                         </div>
                             </div>
