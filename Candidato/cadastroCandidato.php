@@ -233,6 +233,24 @@ error_reporting(0);
 		values('$nmUsu','$senha','$nmEsb','$email','$bday','$cep','$estado','$cidade','$bairro','$rua','Edite esse campo','Edite esse campo','Edite esse campo','Edite esse campo','Sem Profissão','user.jpg');") or die (mysqli_error());
 
 
+		 $sql= mysqli_query($conn,"select * from TbCandidatos  where Email = '$email' and Senha = '$senha';");
+			$row = mysqli_num_rows($sql);
+			$linha = mysqli_fetch_assoc($sql);
+			$idcand = $linha['IdCandidato'];
+			mysqli_query($conn,"insert into TbContatos(fk_IdEmpresa,fk_IdCandidato)
+            values(1,$idcand);");
+
+            $sqlcontato= mysqli_query($conn,"select * from TbContatos where fk_IdCandidato = $idcand and fk_IdEmpresa=1;");
+            $row2 = mysqli_num_rows($sqlcontato);
+			$linha2 = mysqli_fetch_assoc($sqlcontato);
+			$idcontat = $linha2['IdContato'];
+
+            mysqli_query($conn," insert into TbMensagens(fk_IdContato,fk_IdCandidato,fk_IdEmpresa,Mensagem)
+            values($idcontat,null,1,'Olá, seja bem vindo ao meu sistema');");
+
+
+
+
 	echo"<div class='alert alert-success'>Você foi cadastrado com sucesso, agora poderá efetuar login.</div>";
 
 

@@ -336,7 +336,7 @@ function validarCNPJ(cnpj) {
 			$idcontat = $linha2['IdContato'];
 
             mysqli_query($conn," insert into TbMensagens(fk_IdContato,fk_IdEmpresa,fk_IdCandidato,Mensagem)
-            values($idcontat,$idemp,1,'Olá, seja bem vindo ao meu sistema');");
+            values($idcontat,null,1,'Olá, seja bem vindo ao meu sistema');");
 
             mysqli_query($conn," insert into TbSolicitacao(fk_IdEmpresa,fk_IdCandidato)
             values($idemp,2);");

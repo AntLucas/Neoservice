@@ -855,22 +855,22 @@ $_SESSION['Contador'] +=1;
 							$ultimo = mysqli_query($conn,"select * from TbMensagens where IdMensagem = $mensagemultimo");
 							while($rowsss = mysqli_fetch_array($ultimo)){
 
-							$mensagemultima = $rowsss['Mensagem'];
+							$mensagemultima = utf8_encode($rowsss['Mensagem']);
 							$falando = utf8_decode($rowsss['fk_IdCandidato']);
 
 
 							if($falando<=0){
 
-							echo"$nome: $mensagemultima";
+							echo utf8_decode("$nome: $mensagemultima");
 							}
 							else{
-								echo"Você: $mensagemultima ";
+								echo"Você:"; echo utf8_decode(" $mensagemultima ");
 							}
 							}
 
 							}
 
-							?><?php echo"<input  type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
+							?><br><?php echo"<input  type='submit' value='&rang;&rang;' class='btn btn-success  btn-sm'/>";?></p>
 						</div>
 					</div>
 				</li>
