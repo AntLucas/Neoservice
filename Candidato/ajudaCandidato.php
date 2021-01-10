@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <?php include_once("../assets/lib/dbconnect.php"); ?>
@@ -68,16 +68,16 @@ $sql2 = mysqli_query($conn, $sql);
                     <div>
                     <form method="post" action="pesquisa.php">
                         <div class="input-group">
-						
+
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-					
+
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-							
+
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
@@ -88,10 +88,10 @@ $sql2 = mysqli_query($conn, $sql);
 							}
 							?>
 							</datalist>
-                           
+
 							</form>
-							
-							
+
+
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@ $sql2 = mysqli_query($conn, $sql);
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-									
+
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -132,7 +132,7 @@ $sql2 = mysqli_query($conn, $sql);
                 </div>
                 <div class="sidebar-brand">
                     <a href="ajudaCandidato.php">AJUDA</a>
-                    
+
                 </div>
                 <!-- sidebar-menu  -->
             </div>
@@ -212,8 +212,8 @@ $sql2 = mysqli_query($conn, $sql);
                     </a>
                 </div>
             </div>
-			
-			
+
+
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
@@ -222,30 +222,34 @@ $sql2 = mysqli_query($conn, $sql);
                     <div class="container emp-profile">
             <form method="post">
                 <div class="row">
-                    
-                    
+
+
                         <div class="profile-head">
                                     <h4>
-									
+
                                       <?php echo "Informações"?>
                                     </h4>
-                                
+
                                     <h5>
-									
+
                                       <?php echo "Acesse o resumo do seu perfil, e dê uma olhada em como seu perfil é visto por outros usuário. Edite suas informações em editar perfil, na hora de trocar de foto, use um formato válido de imagem"?>
                                     </h5>
                                     <h5>
-									
+
+                                      <?php echo "Cadastre por competências para que empresas possam pesquisar por elas"?>
+                                    </h5>
+                                    <h5>
+
                                       <?php echo "Utilize a barra de pesquisa para pesquisar empresas cadastradas pelo nome delas, em caso de teste tente pesquisar por \"Neoservice\""?>
                                     </h5>
                                     <h5>
-									
+
                                       <?php echo "Ao pesquisar por uma empresa, vizualise o perfil, e caso queira mande uma solicitação de contato, caso a empresa aceite a sua solitação, você poderá mandar mensagens para ela, utilizando o nosso chat que está ao lado esquerdo da engrenagem no canto inferior esquerdo da tela, no menu."?>
                                     </h5>
-                                    
-                        
+
+
                     </div>
-                    
+
                 </div>
             </div>
         </main>
