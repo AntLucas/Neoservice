@@ -115,6 +115,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                         </div>
                     </div>
                 </div>
+
                 <!-- sidebar-search  -->
                 <div class="sidebar-menu">
                     <ul>
@@ -149,6 +150,10 @@ while($rowss = mysqli_fetch_array($sql2)){
                             </div>
                         </li>
                     </ul>
+                </div>
+                <div class="sidebar-brand">
+                    <a href="ajudaCandidato.php">AJUDA</a>
+
                 </div>
                 <!-- sidebar-menu  -->
             </div>

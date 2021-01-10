@@ -1,53 +1,23 @@
-<?php
+<?php 
 session_start();
-include_once("../assets/lib/dbconnect.php");
-//if(isset($_POST['perfil']) && $_POST['perfil']=="perfils"){
-//$idemp = $_POST['idd'];
-//$_SESSION['idbusca'] = $idemp;
-//echo"".$_SESSION['idbusca'];
-//header('Location: perfilDeEmpresa.php');
-//}
+?>
+<?php include_once("../assets/lib/dbconnect.php"); ?>
 
-	if(isset($_POST['perfil']) && $_POST['perfil']=="perfils"){
-						$idemp = $_POST['idd'];
-						$_SESSION['idbusca'] = $idemp;
-						header('Location: perfilDeEmpresa.php');
-
-						}
-						else{
-
-						}
-
-
-$pesquisa = $_SESSION['pesquisa'];
+<?php
 $idcandidato =  utf8_encode($_SESSION['IdCandidato']);
 $email = utf8_encode($_SESSION['Email']);
 $senha = utf8_encode($_SESSION['Senha']);
 $NmC = utf8_encode($_SESSION['NmCandidato']);
 $nomeu = utf8_encode($_SESSION['NmUsuario']);
 $senha	= utf8_encode($_SESSION['Senha']);
-$cep	= utf8_encode($_SESSION['cep'] );
-$estado	= utf8_encode($_SESSION['estado']);
-$cidade	= utf8_encode( $_SESSION['cidade']) ;
-$bairro	= utf8_encode($_SESSION['bairro'] );
-$rua	= utf8_encode($_SESSION['rua'] );
-$bio	= utf8_encode($_SESSION['biografia']);
-$xp	= utf8_encode($_SESSION['xp'] );
-$ingles	= utf8_encode($_SESSION['ingles']);
-$formacao	= utf8_encode($_SESSION['formacao']);
-$profissao	= utf8_encode($_SESSION['profissao']);
 
 $sql = "select * from TbCandidatos  where Email = '$email' and Senha = '$senha';";
 $sql2 = mysqli_query($conn, $sql);
-while($rowss = mysqli_fetch_array($sql2)){
 
-	$bday = utf8_encode($rowss['bdat']);
-	$nascimento = implode("/", array_reverse(explode("-", $bday)));
-
-}
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <?php
 						$imagem = mysqli_query($conn,"select foto from TbCandidatos where IdCandidato = $idcandidato");
 						while($assoc = mysqli_fetch_assoc($imagem)){
@@ -55,11 +25,11 @@ while($rowss = mysqli_fetch_array($sql2)){
 						}
 						?>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="icon" type="image/x-icon" href="../assets/images/favicon.ico">
-    <title>NeoService - Busca</title>
+    <title>NeoService - Perfil</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
@@ -67,7 +37,7 @@ while($rowss = mysqli_fetch_array($sql2)){
     <link rel="stylesheet" href="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.min.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
     <link rel="stylesheet" href="../assets/css/custom-themes.css">
-	<link rel="stylesheet" href="../assets/css/buscaCandidato.css">
+	<link rel="stylesheet" href="../assets/css/styleCandidato.css">
 </head>
 
 <body>
@@ -98,16 +68,16 @@ while($rowss = mysqli_fetch_array($sql2)){
                     <div>
                     <form method="post" action="pesquisa.php">
                         <div class="input-group">
-
+						
                             <input type="text" name="pesquisa" class="form-control search-menu" list="historico" placeholder="Pesquise..."/>
-
+					
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                 <button type="hidden" class="fa fa-search" aria-hidden="true" style="background:transparent;border:none;color:gray;"></button>
                                 </span>
                             </div>
 							<input type="hidden" name="env" value="pesquisar"/>
-
+							
 							<datalist id="historico">
 							<?php
 							$sqli = "select * from TbEmpresas;";
@@ -118,10 +88,10 @@ while($rowss = mysqli_fetch_array($sql2)){
 							}
 							?>
 							</datalist>
-
+                           
 							</form>
-
-
+							
+							
                         </div>
                     </div>
                 </div>
@@ -151,7 +121,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     <li>
                                         <a href="editarPerfilCandidato.php">Editar Perfil</a>
                                     </li>
-
+									
 									<li>
                                         <a href="CompetenciasCadastrarExcluir.php">Competências</a>
                                     </li>
@@ -162,7 +132,7 @@ while($rowss = mysqli_fetch_array($sql2)){
                 </div>
                 <div class="sidebar-brand">
                     <a href="ajudaCandidato.php">AJUDA</a>
-
+                    
                 </div>
                 <!-- sidebar-menu  -->
             </div>
@@ -179,8 +149,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                             <i class="fa fa-bell"></i>
                             Notifications
                         </div>
-                        <div class="dropdown-divider"></div>
-                        <!--<a class="dropdown-item" href="#">
+                        <!-- <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">
                             <div class="notification-content">
                                 <div class="icon">
                                     <i class="fas fa-check text-success border border-success"></i>
@@ -218,7 +188,8 @@ while($rowss = mysqli_fetch_array($sql2)){
                                     </div>
                                 </div>
                             </div>
-                        </a>-->
+                        </a>
+						-->
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-center" href="#">View all notifications</a>
                     </div>
@@ -241,105 +212,41 @@ while($rowss = mysqli_fetch_array($sql2)){
                     </a>
                 </div>
             </div>
-
-
+			
+			
         </nav>
         <!-- sidebar-wrapper  -->
         <main class="page-content">
             <div class="container-fluid">
-					<div class="container"><br>
-				<div class="jumbotron p-3 text-center">
-				  <h1 class="display-4">Busca de Empresas</h1><hr>
-				  <p class="lead">Resultados pela busca: "<?php echo utf8_decode("$pesquisa");?>"</p>
-				  <p class="lead">
-				  </p>
-				</div>
-
-
-
-
-
-				<div class="row">
-			<?php
-		$sqlpesquisa = "select * from TbEmpresas where NmEmpresa = '$pesquisa'";
-		$sqlpesquisa2 = mysqli_query($conn,$sqlpesquisa);
-
-		while($lc = @mysqli_fetch_array($sqlpesquisa2) ){
-		$nmempresa = $lc['NmEmpresa'];
-		$idempresa = $lc['IdEmpresa'];
-		$img2 = utf8_encode($lc['foto']);
-		?>
-
-				  <div class="col-sm-6">
-					<div class="card">
-					  <h4 class="card-header text-right bg-dark text-white"><?php echo utf8_decode("$nmempresa");?>
-					  <div class="float-left small">
-					  <form method="post" >
-						<input type="submit" class="btn btn-raised btn-danger" title="Ver perfil de EMPRESA" value="Perfil"/>
-						<input type="hidden" name="perfil" value="perfils"/>
-						<input type="hidden" name="idd" value="<?php echo "$idempresa"?>">
-						</form>
-
-
-
-
-					  </div>
-					  </h4>
-					  <div class="card-body">
-						  <div class="image float-right user-r">
-							<img class="img-responsive img-rounded" src="../assets/images/fotos/<?php echo"$img2"?>" alt="User picture">
-						  </div>
-						  <br>
-						<h4 class="card-title">Vagas</h4>
-
-
-
-                             <div class="col-md-6">
-								<?php
-							$if = "select * from TbVagas where fk_IdEmpresa = '$idempresa';";
-							$if2 = mysqli_query($conn,$if);
-							while($ifrow = mysqli_fetch_array($if2)){
-							$vag = utf8_encode($ifrow['vaga']);
-							$sal = utf8_encode($ifrow['salario']);
-							$desc = utf8_encode($ifrow['descricao']);
-							$horario = utf8_encode($ifrow['horario']);
-
-
-
-                    ?>
-						  <p class="card-text"><center><strong><?php echo utf8_decode("$vag");?></strong></center></p>
-						  <p><strong>Remuneração: </strong><?php echo utf8_decode("R$ $sal")?></p>
-						  <p><strong>Horário: </strong><?php echo utf8_decode("$horario")?> </p>
-						 <p><strong>Descrição: </strong><?php echo utf8_decode("$desc");?></p><?php
-						  echo"</br></br></br>";
-
-					  }
-							?>
-
-					</div>
-				  </div>
-
-				</div>
-
-
-
-
-				<br>
-
-				</div>
-
-
-
-				  <?php
-
-					  }
-							?>
-				  </hr>
-
-					</div>
-
-
-					<!-- jQuery first, then Bootstrap JS. -->
+                <div class="row">
+                    <div class="container emp-profile">
+            <form method="post">
+                <div class="row">
+                    
+                    
+                        <div class="profile-head">
+                                    <h4>
+									
+                                      <?php echo "Informações"?>
+                                    </h4>
+                                
+                                    <h5>
+									
+                                      <?php echo "Acesse o resumo do seu perfil, e dê uma olhada em como seu perfil é visto por outros usuário. Edite suas informações em editar perfil, na hora de trocar de foto, use um formato válido de imagem"?>
+                                    </h5>
+                                    <h5>
+									
+                                      <?php echo "Utilize a barra de pesquisa para pesquisar empresas cadastradas pelo nome delas, em caso de teste tente pesquisar por \"Neoservice\""?>
+                                    </h5>
+                                    <h5>
+									
+                                      <?php echo "Ao pesquisar por uma empresa, vizualise o perfil, e caso queira mande uma solicitação de contato, caso a empresa aceite a sua solitação, você poderá mandar mensagens para ela, utilizando o nosso chat que está ao lado esquerdo da engrenagem no canto inferior esquerdo da tela, no menu."?>
+                                    </h5>
+                                    
+                        
+                    </div>
+                    
+                </div>
             </div>
         </main>
         <!-- page-content" -->
@@ -352,8 +259,6 @@ while($rowss = mysqli_fetch_array($sql2)){
         crossorigin="anonymous"></script>
     <script src="//malihu.github.io/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="../assets/js/custom.js"></script>
-	<script src="https://unpkg.com/popper.js@1.12.5/dist/umd/popper.js"></script>
-	<script src="https://unpkg.com/bootstrap-material-design@4.0.0-beta.3/dist/js/bootstrap-material-design.js"></script>
 </body>
 
 </html>
