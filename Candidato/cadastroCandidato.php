@@ -127,7 +127,7 @@ error_reporting(0);
 
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" style="text-transform: capitalize;" required="required" name="nmEsb" maxlength="30" class="form-control texto" placeholder="Nome e Sobrenome *" value="" pattern="^[a-zA-Z\u00C0-\u017F´]+\s+[a-zA-Z\u00C0-\u017F´]{0,}$" />
+                                            <input type="text" style="text-transform: capitalize;" required="required" name="nmEsb" maxlength="30" class="form-control texto" placeholder="Nome e Sobrenome *" value=""  />
 
                                         </div>
 										<div class="form-group">
