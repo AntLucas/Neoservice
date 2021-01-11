@@ -50,6 +50,10 @@ error_reporting(0);
 							<div class="logo"></div>
 							<h2>NEO<i class="fa fa-rocket"></i>SERVICE</h2>
 							<p>SUA PLATAFORMA DE TRABALHOS TEMPORÁRIOS!</p>
+
+							<p>Crie sua conta como candidato ou empresa e inicie sua sessão clicando no menu</p>
+
+							<p>Caso tenha dúvidas do funcionamento do site, use a aba de ajuda para obter mais informações</p>
 						</div>
 					</section>
 
@@ -74,7 +78,7 @@ error_reporting(0);
 									<div class="content">
 										<h2 class="major">SOBRE O PROJETO</h2>
 										<p>O projeto tende a proporcionar uma aplicação, que possibilite auxiliar na busca de funcionários, sendo tanto estudantes quanto profissionais, de maneira prática, rápida e simples. Por esse motivo, o projeto é focado em trabalhos temporários, nos períodos em que o mercado mais necessita, sem qualquer efetivação. Para um estudante ou até mesmo uma pessoa que está atualmente desempregada.</p>
-									
+
 									</div>
 								</div>
 							</section>
@@ -100,15 +104,14 @@ error_reporting(0);
 										<div class="col-md-8 col-md-offset-2">
 											<div id="testimonial" class="owl-carousel owl-theme" data-wow-delay="200ms">
 												<div class="item">
-													<p><font color="#DCDCDC" size="4">Na segunda-feira, dia 15 de outubro, realizaremos outra mudança em nossa interface principal, deixando-a mais agradável. Adicionamos diversas outras ferramentas em nossa plataforma, como exemplo a dashboard do candidato. E também estamos participando da Feira Tecnológica do Centro Paula Souza.</p></font>
+													<p><font color="#DCDCDC" size="4"></p></font>
 														<img class="img-center" src="http://www.learnex.in/wp-content/uploads/2015/12/flat-faces-icons-circle-6.png" height="100px" alt="">
-														<span style='color:white;'><p><strong>Douglas Almeida</span></strong>| @Dev</font></p></span>
+														<span style='color:white;'><p><strong>Antonio Lucas</span></strong>| @Dev</font></p></span>
 												</div>
 												<div class="item">
-														<p><font color="#DCDCDC" size="4">A edição 2018 da Feteps traz um novo conceito conectado com o crescimento das plataformas digitais em todo o mundo.
-																Você está prestes a entrar em um cenário virtual onde poderá caminhar pelos estandes de cada projeto, ver os banners, assistir aos vídeos e selecionar seus temas favoritos no menu inteligente.</p></font>
+														<p><font color="#DCDCDC" size="4"></p></font>
 															<img class="img-center" src="http://www.learnex.in/wp-content/uploads/2015/12/flat-faces-icons-circle-6.png" height="100px" alt="">
-															<span style='color:white;'><p><strong>Douglas Almeida</span></strong>| @Dev</font></p></span>
+															<span style='color:white;'><p><strong>Antonio Lucas</span></strong>| @Dev</font></p></span>
 												</div>
 											</div>
 										</div>
@@ -132,8 +135,8 @@ error_reporting(0);
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-			<script type="text/javascript" src="assets/js/owl.carousel.js"></script> 
-			<script type="text/javascript" src="assets/js/wow.min.js"></script> 
+			<script type="text/javascript" src="assets/js/owl.carousel.js"></script>
+			<script type="text/javascript" src="assets/js/wow.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
