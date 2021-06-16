@@ -33,12 +33,7 @@ if($_FILES['arquivo']['error'] !=0){
 
 if(move_uploaded_file($_FILES['arquivo']['tmp_name'], $_UP['pasta']. $arquivo)){
 	$query= mysqli_query($conn,"update TbEmpresas set foto='$arquivo' where IdEmpresa = $idempresa");
-
 }
-else{
-	
-
+else{	
 }
-
-
 ?>
