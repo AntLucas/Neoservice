@@ -7,7 +7,7 @@
     <br>
      O Aplicativo visa auxiliar a interação entre empresas e pessoas, facilitando o encontro entre os dois, agilizando o processo de contrato e busca de informações.
     <br>
-    <a href="http://www.neo-service.tk"><strong>Visite nosso site!»</strong></a>
+    <a href="https://neo-service.000webhostapp.com/"><strong>Visite nosso site!»</strong></a>
     <br>
   </p>
 </p>
